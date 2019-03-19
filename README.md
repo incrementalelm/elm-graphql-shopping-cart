@@ -1,8 +1,13 @@
-# GraphQL Nexus Star Wars:
+![](./img/cover.jpg)
 
-This is meant to demonstrate some of the features of GraphQL Nexus.
+## Setup
 
-### Changes from the graphql-js example:
+Run both of these commands:
 
-- Backing data types are changed to `snake_case` to demonstrate the `property` feature.
-- Removes the "secretBackstory" field which always throws an Error
+```shell
+npm start
+```
+
+```shell
+npm run start-elm
+```
