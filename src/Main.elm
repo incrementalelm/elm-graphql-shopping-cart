@@ -1,11 +1,11 @@
 module Main exposing (main)
 
 import Api.Enum.DiscountErrorReason as DiscountErrorReason exposing (DiscountErrorReason)
-import Api.Object.DiscountedLookupError
 import Api.Object.DiscountedProductInfo
 import Api.Query as Query
 import Api.Union.DiscountedProductInfoOrError
 import Browser
+import Discount
 import Graphql.Document as Document
 import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
@@ -16,40 +16,13 @@ import RemoteData exposing (RemoteData)
 
 
 type alias Response =
-    Result DiscountErrorReason Int
-
-
-
--- List String
--- Int
+    Discount.Discount
 
 
 query : SelectionSet Response RootQuery
 query =
     Query.discountOrError { discountCode = "asdf" }
-        (Api.Union.DiscountedProductInfoOrError.fragments
-            { onDiscountedLookupError =
-                Api.Object.DiscountedLookupError.reason
-                    |> SelectionSet.map Err
-            , onDiscountedProductInfo =
-                Api.Object.DiscountedProductInfo.discountedPrice
-                    |> SelectionSet.map Ok
-            }
-        )
-
-
-nonTypesafeErrorSelection =
-    Query.discount { discountCode = "asdf" }
-        Api.Object.DiscountedProductInfo.discountedPrice
-
-
-unionSelection =
-    Query.discountOrError { discountCode = "merryxmas2018" }
-        (Api.Union.DiscountedProductInfoOrError.fragments
-            { onDiscountedLookupError = Api.Object.DiscountedLookupError.reason |> SelectionSet.map Err
-            , onDiscountedProductInfo = Api.Object.DiscountedProductInfo.discountedPrice |> SelectionSet.map Ok
-            }
-        )
+        Discount.selection
 
 
 makeRequest : Cmd Msg

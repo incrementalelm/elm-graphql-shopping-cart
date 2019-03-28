@@ -1,4 +1,4 @@
-module Discount exposing (Discount)
+module Discount exposing (Discount, selection)
 
 import Api.Union
 import Api.Union.DiscountedProductInfoOrError
