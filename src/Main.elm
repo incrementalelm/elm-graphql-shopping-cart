@@ -29,7 +29,7 @@ makeRequest : Cmd Msg
 makeRequest =
     query
         |> Graphql.Http.queryRequest "http://localhost:4000/"
-        |> Graphql.Http.send (RemoteData.fromResult >> GotResponse)
+        |> Graphql.Http.send (\result -> result |> RemoteData.fromResult |> GotResponse)
 
 
 
