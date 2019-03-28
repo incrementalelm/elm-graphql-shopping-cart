@@ -26,13 +26,13 @@ export const Query = objectType({
             return { discountedPrice: 149, type: "DiscountedProductInfo" };
           }
           case "merryxmas2018": {
-            return { reason: 1, type: "DiscountedLookupError" };
+            return { expiredAt: "abc", type: "DiscountExpired" };
           }
           case "discount": {
             return { reason: 2, type: "DiscountedLookupError" };
           }
           default: {
-            return { reason: 3, type: "DiscountedLookupError" };
+            return { type: "DiscountNotFound" };
           }
         }
       }

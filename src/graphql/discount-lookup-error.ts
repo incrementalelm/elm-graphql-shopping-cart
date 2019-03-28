@@ -1,11 +1,10 @@
 import { objectType } from "nexus";
 
-export const DiscountSuccessResponse = objectType({
-  name: "DiscountedLookupError",
-  description: "The product information after applying a discount code.",
+export const DiscountExpired = objectType({
+  name: "DiscountExpired",
+  description: "The discount code is no longer valid because it expired.",
   definition(t) {
-    t.field("reason", {
-      type: "DiscountErrorReason",
+    t.string("expiredAt", {
       nullable: false
     });
   }

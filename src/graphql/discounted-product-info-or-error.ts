@@ -5,7 +5,7 @@ export const DiscountedProductInfoOrError = nexus.unionType({
   description:
     "The product information after applying a discount code. Or error info if it can't be applied.",
   definition(t) {
-    t.members("DiscountedLookupError", "DiscountedProductInfo");
+    t.members("DiscountExpired", "DiscountedProductInfo", "DiscountNotFound");
     t.resolveType((item: any) => item.type);
   }
 });

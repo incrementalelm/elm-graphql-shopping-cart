@@ -3,11 +3,6 @@
 
 
 """The product information after applying a discount code."""
-type DiscountedLookupError {
-  reason: DiscountErrorReason!
-}
-
-"""The product information after applying a discount code."""
 type DiscountedProductInfo {
   """The discounted product price."""
   discountedPrice: Int!
@@ -16,7 +11,7 @@ type DiscountedProductInfo {
 """
 The product information after applying a discount code. Or error info if it can't be applied.
 """
-union DiscountedProductInfoOrError = DiscountedLookupError | DiscountedProductInfo
+union DiscountedProductInfoOrError = DiscountedProductInfo | DiscountExpired | DiscountNotFound
 
 """Reason that discount code cannot be applied."""
 enum DiscountErrorReason {
@@ -30,6 +25,16 @@ enum DiscountErrorReason {
 
   """The discount has been used too many times."""
   OVER_LIMIT
+}
+
+"""The discount code is no longer valid because it expired."""
+type DiscountExpired {
+  expiredAt: String!
+}
+
+"""The discount code does not exist."""
+type DiscountNotFound {
+  _: Int
 }
 
 type Query {

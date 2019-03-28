@@ -18,8 +18,11 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
-  DiscountedLookupError: { // root type
-    reason: NexusGenEnums['DiscountErrorReason']; // DiscountErrorReason!
+  DiscountExpired: { // root type
+    expiredAt: string; // String!
+  }
+  DiscountNotFound: { // root type
+    _?: number | null; // Int
   }
   DiscountedProductInfo: { // root type
     discountedPrice: number; // Int!
@@ -30,7 +33,7 @@ export interface NexusGenRootTypes {
   Float: number;
   Boolean: boolean;
   ID: string;
-  DiscountedProductInfoOrError: NexusGenRootTypes['DiscountedLookupError'] | NexusGenRootTypes['DiscountedProductInfo'];
+  DiscountedProductInfoOrError: NexusGenRootTypes['DiscountedProductInfo'] | NexusGenRootTypes['DiscountExpired'] | NexusGenRootTypes['DiscountNotFound'];
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
@@ -38,8 +41,11 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
-  DiscountedLookupError: { // field return type
-    reason: NexusGenEnums['DiscountErrorReason']; // DiscountErrorReason!
+  DiscountExpired: { // field return type
+    expiredAt: string; // String!
+  }
+  DiscountNotFound: { // field return type
+    _: number | null; // Int
   }
   DiscountedProductInfo: { // field return type
     discountedPrice: number; // Int!
@@ -64,12 +70,12 @@ export interface NexusGenArgTypes {
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
-  DiscountedProductInfoOrError: "DiscountedLookupError" | "DiscountedProductInfo"
+  DiscountedProductInfoOrError: "DiscountedProductInfo" | "DiscountExpired" | "DiscountNotFound"
 }
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "DiscountedLookupError" | "DiscountedProductInfo" | "Query";
+export type NexusGenObjectNames = "DiscountExpired" | "DiscountNotFound" | "DiscountedProductInfo" | "Query";
 
 export type NexusGenInputNames = never;
 
