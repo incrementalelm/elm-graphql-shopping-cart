@@ -60,10 +60,18 @@ update msg model =
             ( response, Cmd.none )
 
 
-main : Helpers.Main.Program Flags Model Msg
+main : Program Flags Model Msg
 main =
-    Helpers.Main.document
+    Browser.document
         { init = init
+        , view = view
         , update = update
-        , queryString = Document.serializeQuery query
+        , subscriptions = \model -> Sub.none
         }
+
+
+view : Model -> Browser.Document Msg
+view model =
+    { title = "The Elm Shoppe"
+    , body = []
+    }
