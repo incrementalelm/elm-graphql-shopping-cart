@@ -22,7 +22,7 @@ export interface NexusGenRootTypes {
     expiredAt: string; // String!
   }
   DiscountNotFound: { // root type
-    _?: number | null; // Int
+    ignore?: number | null; // Int
   }
   DiscountedProductInfo: { // root type
     discountedPrice: number; // Int!
@@ -45,7 +45,7 @@ export interface NexusGenFieldTypes {
     expiredAt: string; // String!
   }
   DiscountNotFound: { // field return type
-    _: number | null; // Int
+    ignore: number | null; // Int
   }
   DiscountedProductInfo: { // field return type
     discountedPrice: number; // Int!

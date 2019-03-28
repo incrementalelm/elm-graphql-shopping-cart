@@ -2,9 +2,8 @@
 -- https://github.com/dillonkearns/elm-graphql
 
 
-module Api.Object.DiscountedLookupError exposing (reason)
+module Api.Object.DiscountExpired exposing (expiredAt)
 
-import Api.Enum.DiscountErrorReason
 import Api.InputObject
 import Api.Interface
 import Api.Object
@@ -20,6 +19,6 @@ import Graphql.SelectionSet exposing (SelectionSet)
 import Json.Decode as Decode
 
 
-reason : SelectionSet Api.Enum.DiscountErrorReason.DiscountErrorReason Api.Object.DiscountedLookupError
-reason =
-    Object.selectionForField "Enum.DiscountErrorReason.DiscountErrorReason" "reason" [] Api.Enum.DiscountErrorReason.decoder
+expiredAt : SelectionSet String Api.Object.DiscountExpired
+expiredAt =
+    Object.selectionForField "String" "expiredAt" [] Decode.string

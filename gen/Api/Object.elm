@@ -2,11 +2,15 @@
 -- https://github.com/dillonkearns/elm-graphql
 
 
-module Api.Object exposing (DiscountedLookupError(..), DiscountedProductInfo(..))
+module Api.Object exposing (DiscountExpired(..), DiscountNotFound(..), DiscountedProductInfo(..))
 
 
-type DiscountedLookupError
-    = DiscountedLookupError
+type DiscountExpired
+    = DiscountExpired
+
+
+type DiscountNotFound
+    = DiscountNotFound
 
 
 type DiscountedProductInfo

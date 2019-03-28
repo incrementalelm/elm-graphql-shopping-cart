@@ -20,8 +20,9 @@ import Json.Decode as Decode
 
 
 type alias Fragments decodesTo =
-    { onDiscountedLookupError : SelectionSet decodesTo Api.Object.DiscountedLookupError
+    { onDiscountExpired : SelectionSet decodesTo Api.Object.DiscountExpired
     , onDiscountedProductInfo : SelectionSet decodesTo Api.Object.DiscountedProductInfo
+    , onDiscountNotFound : SelectionSet decodesTo Api.Object.DiscountNotFound
     }
 
 
@@ -32,8 +33,9 @@ fragments :
     -> SelectionSet decodesTo Api.Union.DiscountedProductInfoOrError
 fragments selections =
     Object.exhuastiveFragmentSelection
-        [ Object.buildFragment "DiscountedLookupError" selections.onDiscountedLookupError
+        [ Object.buildFragment "DiscountExpired" selections.onDiscountExpired
         , Object.buildFragment "DiscountedProductInfo" selections.onDiscountedProductInfo
+        , Object.buildFragment "DiscountNotFound" selections.onDiscountNotFound
         ]
 
 
@@ -42,6 +44,7 @@ update syntax to add `SelectionSet`s for the types you want to handle.
 -}
 maybeFragments : Fragments (Maybe decodesTo)
 maybeFragments =
-    { onDiscountedLookupError = Graphql.SelectionSet.empty |> Graphql.SelectionSet.map (\_ -> Nothing)
+    { onDiscountExpired = Graphql.SelectionSet.empty |> Graphql.SelectionSet.map (\_ -> Nothing)
     , onDiscountedProductInfo = Graphql.SelectionSet.empty |> Graphql.SelectionSet.map (\_ -> Nothing)
+    , onDiscountNotFound = Graphql.SelectionSet.empty |> Graphql.SelectionSet.map (\_ -> Nothing)
     }

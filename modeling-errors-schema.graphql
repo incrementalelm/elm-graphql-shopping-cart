@@ -34,7 +34,7 @@ type DiscountExpired {
 
 """The discount code does not exist."""
 type DiscountNotFound {
-  _: Int
+  ignore: Int
 }
 
 type Query {
