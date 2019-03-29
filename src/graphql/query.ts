@@ -9,7 +9,9 @@ const paymentArgs = {
 };
 
 const products = [
-  { code: "elm-bonsai-tree", name: "Elm Bonsai Tree", price: 123 }
+  { code: "bonsai", name: "Elm Bonsai Tree", price: 200 },
+  { code: "painting", name: "Elm Painting", price: 350 },
+  { code: "seeds", name: "Elm Seeds", price: 20 }
 ];
 
 export const Query = objectType({
