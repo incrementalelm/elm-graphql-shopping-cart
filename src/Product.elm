@@ -38,7 +38,10 @@ selection =
 view : Discount -> Product -> Element msg
 view discount ((Product productDetails) as product) =
     Element.row [ Element.spacing 30 ]
-        [ Element.image [ Element.width (Element.px 100) ] { src = productDetails.imageUrl, description = productDetails.name }
+        [ Element.image [ Element.width (Element.px 100) ]
+            { src = productDetails.imageUrl
+            , description = productDetails.name
+            }
         , Element.text productDetails.name
         , priceView discount product
         ]
