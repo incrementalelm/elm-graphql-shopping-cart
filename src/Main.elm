@@ -5,7 +5,7 @@ import Api.Object.DiscountedProductInfo
 import Api.Query as Query
 import Api.Union.DiscountedProductInfoOrError
 import Browser
-import Discount
+import Discount exposing (Discount)
 import Element exposing (Element)
 import Element.Input
 import Graphql.Document as Document
@@ -16,11 +16,7 @@ import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, hardcoded, w
 import Helpers.Main
 import Product
 import RemoteData exposing (RemoteData)
-import Request
-
-
-type alias Response =
-    Discount.Discount
+import Request exposing (Response)
 
 
 productsRequest : Cmd Msg
@@ -40,14 +36,14 @@ discountRequest discountCode =
 
 
 type Msg
-    = GotResponse (RemoteData (Graphql.Http.Error Response) Response)
-    | GotProducts (RemoteData (Graphql.Http.Error (List Product.Product)) (List Product.Product))
+    = GotResponse (Response Discount)
+    | GotProducts (Response (List Product.Product))
     | ChangedDiscountCode String
 
 
 type alias Model =
     { discountCode : String
-    , discountInfo : RemoteData (Graphql.Http.Error Response) Response
+    , discountInfo : Response Discount
     }
 
 
