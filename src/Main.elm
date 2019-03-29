@@ -7,6 +7,7 @@ import Api.Union.DiscountedProductInfoOrError
 import Browser
 import Discount
 import Element exposing (Element)
+import Element.Input
 import Graphql.Document as Document
 import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
@@ -89,5 +90,33 @@ view model =
 
 discountInputView : Model -> Element Msg
 discountInputView model =
-    Discount.view model
-        |> Element.map ChangedDiscountCode
+    Element.row [ Element.width Element.fill, Element.spacing 20 ]
+        [ inputView model
+        , discountView model
+        ]
+
+
+discountView : { model | discountCode : String, discountInfo : RemoteData e Discount.Discount } -> Element msg
+discountView { discountCode, discountInfo } =
+    case discountInfo of
+        RemoteData.NotAsked ->
+            Element.text ""
+
+        RemoteData.Loading ->
+            Element.text "..."
+
+        RemoteData.Failure e ->
+            Element.text "Failed to load"
+
+        RemoteData.Success discount ->
+            Discount.view discount
+
+
+inputView : { a | discountCode : String } -> Element Msg
+inputView model =
+    Element.Input.text [ Element.width Element.fill ]
+        { onChange = ChangedDiscountCode
+        , text = model.discountCode
+        , placeholder = Nothing
+        , label = Element.Input.labelLeft [] Element.none
+        }

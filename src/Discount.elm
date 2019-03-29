@@ -28,44 +28,16 @@ selection =
         |> SelectionSet.map Discount
 
 
+view : Discount -> Element msg
+view discount =
+    (case discount of
+        Discount Expired ->
+            "\u{1F6D1} Expired"
 
--- SelectionSet.succeed Discount
+        Discount Valid ->
+            "✅"
 
-
-view : { model | discountCode : String, discountInfo : RemoteData e Discount } -> Element String
-view { discountCode, discountInfo } =
-    Element.row [ Element.width Element.fill ]
-        [ Element.Input.text []
-            { onChange = identity
-            , text = discountCode
-            , placeholder = Nothing
-            , label = Element.Input.labelLeft [] Element.none
-            }
-        , discountInfoView discountInfo
-        ]
-
-
-discountInfoView : RemoteData e Discount -> Element msg
-discountInfoView remoteDiscountInfo =
-    case remoteDiscountInfo of
-        RemoteData.NotAsked ->
-            Element.text ""
-
-        RemoteData.Loading ->
-            Element.text "..."
-
-        RemoteData.Failure e ->
-            Element.text "Failed to load"
-
-        RemoteData.Success discount ->
-            (case discount of
-                Discount Expired ->
-                    "Expired"
-
-                Discount Valid ->
-                    "Valid"
-
-                Discount NotFound ->
-                    "NotFound"
-            )
-                |> Element.text
+        Discount NotFound ->
+            "NotFound"
+    )
+        |> Element.text
