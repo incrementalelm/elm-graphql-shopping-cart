@@ -22,15 +22,9 @@ type alias Response =
     Discount.Discount
 
 
-query : String -> SelectionSet Response RootQuery
-query discountCode =
-    Query.discountOrError { discountCode = discountCode }
-        Discount.selection
-
-
 discountRequest : String -> Cmd Msg
 discountRequest discountCode =
-    query discountCode
+    Query.discountOrError { discountCode = discountCode } Discount.selection
         |> Request.query GotResponse
 
 
