@@ -11,16 +11,16 @@ import RemoteData exposing (RemoteData)
 
 
 type Product
-    = Product Api.Scalar.ProductCode
+    = Product Api.Scalar.ProductCode String
 
 
 selection : SelectionSet.SelectionSet Product Api.Object.Product
 selection =
-    Api.Object.Product.code
-        |> SelectionSet.map Product
+    SelectionSet.map2 Product
+        Api.Object.Product.code
+        Api.Object.Product.name
 
 
 view : Product -> Element msg
-view (Product (Api.Scalar.ProductCode rawCode)) =
-    -- Element.none
-    Element.text rawCode
+view (Product (Api.Scalar.ProductCode rawCode) productName) =
+    Element.text productName

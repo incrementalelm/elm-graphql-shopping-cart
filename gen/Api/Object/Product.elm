@@ -2,7 +2,7 @@
 -- https://github.com/dillonkearns/elm-graphql
 
 
-module Api.Object.Product exposing (code, price)
+module Api.Object.Product exposing (code, name, price)
 
 import Api.InputObject
 import Api.Interface
@@ -29,3 +29,10 @@ price =
 code : SelectionSet Api.ScalarCodecs.ProductCode Api.Object.Product
 code =
     Object.selectionForField "ScalarCodecs.ProductCode" "code" [] (Api.ScalarCodecs.codecs |> Api.Scalar.unwrapCodecs |> .codecProductCode |> .decoder)
+
+
+{-| The product name.
+-}
+name : SelectionSet String Api.Object.Product
+name =
+    Object.selectionForField "String" "name" [] Decode.string
