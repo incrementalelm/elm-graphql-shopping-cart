@@ -39,6 +39,7 @@ type Msg
     = GotResponse (Response Discount)
     | GotProducts (Response (List Product.Product))
     | ChangedDiscountCode String
+    | ApplyDiscountCode
 
 
 type alias Model =
@@ -73,6 +74,9 @@ update msg model =
 
         GotProducts productsResponse ->
             ( { model | products = productsResponse }, Cmd.none )
+
+        ApplyDiscountCode ->
+            ( model, discountRequest model.discountCode )
 
 
 main : Program Flags Model Msg
