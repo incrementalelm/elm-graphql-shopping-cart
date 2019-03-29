@@ -15,6 +15,7 @@ import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, hardcoded, with)
 import Helpers.Main
 import RemoteData exposing (RemoteData)
+import Request
 
 
 type alias Response =
@@ -30,8 +31,7 @@ query discountCode =
 makeRequest : String -> Cmd Msg
 makeRequest discountCode =
     query discountCode
-        |> Graphql.Http.queryRequest "http://localhost:4000/"
-        |> Graphql.Http.send (\result -> result |> RemoteData.fromResult |> GotResponse)
+        |> Request.query GotResponse
 
 
 
