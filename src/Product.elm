@@ -7,6 +7,7 @@ import Api.Scalar
 import Discount exposing (Discount)
 import Dollars exposing (Dollars)
 import Element exposing (Element)
+import Element.Font
 import Element.Input
 import Graphql.SelectionSet as SelectionSet
 import RemoteData exposing (RemoteData)
@@ -35,24 +36,26 @@ selection =
 
 
 view : Discount -> Product -> Element msg
-view discount ((Product details) as product) =
+view discount ((Product productDetails) as product) =
     Element.row [ Element.spacing 30 ]
-        [ Element.image [ Element.width (Element.px 200) ] { src = details.imageUrl, description = details.name }
-        , Element.text details.name
-        , Dollars.toString details.price |> Element.text
+        [ Element.image [ Element.width (Element.px 100) ] { src = productDetails.imageUrl, description = productDetails.name }
+        , Element.text productDetails.name
         , discountedPriceView discount product
         ]
 
 
 discountedPriceView : Discount -> Product -> Element msg
-discountedPriceView discount (Product { code }) =
+discountedPriceView discount (Product productDetails) =
     let
         applied =
-            Discount.apply discount code
+            Discount.apply discount productDetails.code
     in
     case applied of
         Just { discountedPrice } ->
-            Dollars.toString discountedPrice |> Element.text
+            Element.row [ Element.spacing 10 ]
+                [ Element.el [ Element.Font.strike ] (Dollars.toString productDetails.price |> Element.text)
+                , Dollars.toString discountedPrice |> Element.text
+                ]
 
         Nothing ->
-            Element.none
+            Dollars.toString productDetails.price |> Element.text
