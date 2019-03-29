@@ -44,9 +44,7 @@ apply (Discount discountStatus) productCode =
     case discountStatus of
         Valid price productCode2 ->
             if productCode == productCode2 then
-                Just
-                    { discountedPrice = price
-                    }
+                Just { discountedPrice = price }
 
             else
                 Nothing
