@@ -18,15 +18,17 @@ type alias Details =
     { code : Api.Scalar.ProductCode
     , name : String
     , imageUrl : String
+    , price : Int
     }
 
 
 selection : SelectionSet.SelectionSet Product Api.Object.Product
 selection =
-    SelectionSet.map3 Details
+    SelectionSet.map4 Details
         Api.Object.Product.code
         Api.Object.Product.name
         Api.Object.Product.imageUrl
+        Api.Object.Product.price
         |> SelectionSet.map Product
 
 
@@ -35,4 +37,5 @@ view (Product product) =
     Element.row [ Element.spacing 30 ]
         [ Element.image [ Element.width (Element.px 200) ] { src = product.imageUrl, description = product.name }
         , Element.text product.name
+        , "$" ++ String.fromInt product.price |> Element.text
         ]
