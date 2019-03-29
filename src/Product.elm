@@ -49,11 +49,7 @@ view discount ((Product productDetails) as product) =
 
 priceView : Discount -> Product -> Element msg
 priceView discount (Product productDetails) =
-    let
-        applied =
-            Discount.apply discount productDetails.code
-    in
-    case applied of
+    case Discount.apply discount productDetails.code of
         Just { discountedPrice } ->
             Element.row [ Element.spacing 10 ]
                 [ Element.el [ Element.Font.strike ] (Dollars.toString productDetails.price |> Element.text)
