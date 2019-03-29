@@ -34,9 +34,24 @@ selection =
 
 
 view : Discount -> Product -> Element msg
-view discount (Product product) =
+view discount ((Product details) as product) =
     Element.row [ Element.spacing 30 ]
-        [ Element.image [ Element.width (Element.px 200) ] { src = product.imageUrl, description = product.name }
-        , Element.text product.name
-        , "$" ++ String.fromInt product.price |> Element.text
+        [ Element.image [ Element.width (Element.px 200) ] { src = details.imageUrl, description = details.name }
+        , Element.text details.name
+        , "$" ++ String.fromInt details.price |> Element.text
+        , discountedPriceView discount product
         ]
+
+
+discountedPriceView : Discount -> Product -> Element msg
+discountedPriceView discount (Product { code }) =
+    let
+        applied =
+            Discount.apply discount code
+    in
+    case applied of
+        Just { discountedPrice } ->
+            discountedPrice |> String.fromInt |> Element.text
+
+        Nothing ->
+            Element.none
