@@ -1,5 +1,6 @@
 module Discount exposing (Discount, selection, view)
 
+import Api.Object.DiscountedProductInfo
 import Api.Union
 import Api.Union.DiscountedProductInfoOrError
 import Element exposing (Element)
@@ -14,7 +15,7 @@ type Discount
 
 type DiscountStatus
     = Expired
-    | Valid
+    | Valid Int
     | NotFound
 
 
@@ -23,7 +24,7 @@ selection =
     Api.Union.DiscountedProductInfoOrError.fragments
         { onDiscountExpired = SelectionSet.succeed Expired
         , onDiscountNotFound = SelectionSet.succeed NotFound
-        , onDiscountedProductInfo = SelectionSet.succeed Valid
+        , onDiscountedProductInfo = SelectionSet.map Valid Api.Object.DiscountedProductInfo.discountedPrice
         }
         |> SelectionSet.map Discount
 
@@ -34,7 +35,7 @@ view discount =
         Discount Expired ->
             "\u{1F6D1} Expired"
 
-        Discount Valid ->
+        Discount (Valid discountedPrice) ->
             "✅"
 
         Discount NotFound ->
