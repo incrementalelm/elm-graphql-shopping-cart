@@ -2,7 +2,7 @@
 -- https://github.com/dillonkearns/elm-graphql
 
 
-module Api.Object.Product exposing (code, name, price)
+module Api.Object.Product exposing (code, imageUrl, name, price)
 
 import Api.InputObject
 import Api.Interface
@@ -36,3 +36,10 @@ code =
 name : SelectionSet String Api.Object.Product
 name =
     Object.selectionForField "String" "name" [] Decode.string
+
+
+{-| Preview image for product.
+-}
+imageUrl : SelectionSet String Api.Object.Product
+imageUrl =
+    Object.selectionForField "String" "imageUrl" [] Decode.string

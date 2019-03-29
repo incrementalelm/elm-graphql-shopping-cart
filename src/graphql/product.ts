@@ -10,5 +10,6 @@ export const Product = objectType({
     });
     t.productCode("code");
     t.string("name", { description: "The product name." });
+    t.string("imageUrl", { description: "Preview image for product." });
   }
 });

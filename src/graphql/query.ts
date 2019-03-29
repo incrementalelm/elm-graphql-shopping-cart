@@ -9,9 +9,34 @@ const paymentArgs = {
 };
 
 const products = [
-  { code: "bonsai", name: "Elm Bonsai Tree", price: 200 },
-  { code: "painting", name: "Elm Painting", price: 350 },
-  { code: "seeds", name: "Elm Seeds", price: 20 }
+  {
+    code: "bonsai",
+    name: "Elm Bonsai Tree",
+    price: 200,
+    imageUrl:
+      "https://images-na.ssl-images-amazon.com/images/I/71ZQCpI8v2L._SX425_.jpg"
+  },
+  {
+    code: "painting",
+    name: "Elm Painting",
+    price: 350,
+    imageUrl:
+      "https://images.fineartamerica.com/images-medium-large-5/american-elm-tree-shweta-mahajan.jpg"
+  },
+  {
+    code: "vintage-photo",
+    name: "Vintage Elm Tree Photo",
+    price: 50,
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/1/19/Lovers%27_Elm%2C_Gwynne_estate%2C_Dufferin_Street.jpg"
+  },
+  {
+    code: "seeds",
+    name: "Elm Seeds",
+    price: 20,
+    imageUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/7/76/Ulmus_glabra.jpg"
+  }
 ];
 
 export const Query = objectType({

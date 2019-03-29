@@ -41,6 +41,9 @@ type DiscountNotFound {
 type Product {
   code: ProductCode!
 
+  """Preview image for product."""
+  imageUrl: String!
+
   """The product name."""
   name: String!
 
