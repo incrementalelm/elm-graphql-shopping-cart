@@ -6,6 +6,7 @@ import Api.Query as Query
 import Api.Union.DiscountedProductInfoOrError
 import Browser
 import Discount
+import Element exposing (Element)
 import Graphql.Document as Document
 import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
@@ -19,15 +20,15 @@ type alias Response =
     Discount.Discount
 
 
-query : SelectionSet Response RootQuery
-query =
-    Query.discountOrError { discountCode = "asdf" }
+query : String -> SelectionSet Response RootQuery
+query discountCode =
+    Query.discountOrError { discountCode = discountCode }
         Discount.selection
 
 
-makeRequest : Cmd Msg
-makeRequest =
-    query
+makeRequest : String -> Cmd Msg
+makeRequest discountCode =
+    query discountCode
         |> Graphql.Http.queryRequest "http://localhost:4000/"
         |> Graphql.Http.send (\result -> result |> RemoteData.fromResult |> GotResponse)
 
@@ -37,11 +38,14 @@ makeRequest =
 
 
 type Msg
-    = GotResponse Model
+    = GotResponse (RemoteData (Graphql.Http.Error Response) Response)
+    | ChangedDiscountCode String
 
 
 type alias Model =
-    RemoteData (Graphql.Http.Error Response) Response
+    { discountCode : String
+    , discountInfo : RemoteData (Graphql.Http.Error Response) Response
+    }
 
 
 type alias Flags =
@@ -50,14 +54,17 @@ type alias Flags =
 
 init : Flags -> ( Model, Cmd Msg )
 init _ =
-    ( RemoteData.Loading, makeRequest )
+    ( { discountCode = "", discountInfo = RemoteData.NotAsked }, Cmd.none )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         GotResponse response ->
-            ( response, Cmd.none )
+            ( { model | discountInfo = response }, Cmd.none )
+
+        ChangedDiscountCode newDiscountCode ->
+            ( model, Cmd.none )
 
 
 main : Program Flags Model Msg
@@ -73,5 +80,14 @@ main =
 view : Model -> Browser.Document Msg
 view model =
     { title = "The Elm Shoppe"
-    , body = []
+    , body =
+        Element.row [] [ discountInputView model ]
+            |> Element.layout []
+            |> List.singleton
     }
+
+
+discountInputView : Model -> Element Msg
+discountInputView model =
+    Discount.view model
+        |> Element.map ChangedDiscountCode
