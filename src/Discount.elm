@@ -4,6 +4,7 @@ import Api.Object.DiscountedProductInfo
 import Api.Scalar exposing (ProductCode)
 import Api.Union
 import Api.Union.DiscountedProductInfoOrError
+import Dollars exposing (Dollars)
 import Element exposing (Element)
 import Element.Input
 import Graphql.SelectionSet as SelectionSet
@@ -16,12 +17,12 @@ type Discount
 
 type DiscountStatus
     = Expired
-    | Valid Int ProductCode
+    | Valid Dollars ProductCode
     | NotFound
 
 
 type alias DiscountInfo =
-    { discountedPrice : Int
+    { discountedPrice : Dollars
     }
 
 

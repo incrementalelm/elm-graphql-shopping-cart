@@ -5,6 +5,7 @@ import Api.Object.DiscountedProductInfo
 import Api.Object.Product
 import Api.Scalar
 import Discount exposing (Discount)
+import Dollars exposing (Dollars)
 import Element exposing (Element)
 import Element.Input
 import Graphql.SelectionSet as SelectionSet
@@ -19,7 +20,7 @@ type alias Details =
     { code : Api.Scalar.ProductCode
     , name : String
     , imageUrl : String
-    , price : Int
+    , price : Dollars
     }
 
 
@@ -38,7 +39,7 @@ view discount ((Product details) as product) =
     Element.row [ Element.spacing 30 ]
         [ Element.image [ Element.width (Element.px 200) ] { src = details.imageUrl, description = details.name }
         , Element.text details.name
-        , "$" ++ String.fromInt details.price |> Element.text
+        , Dollars.toString details.price |> Element.text
         , discountedPriceView discount product
         ]
 
@@ -51,7 +52,7 @@ discountedPriceView discount (Product { code }) =
     in
     case applied of
         Just { discountedPrice } ->
-            discountedPrice |> String.fromInt |> Element.text
+            Dollars.toString discountedPrice |> Element.text
 
         Nothing ->
             Element.none

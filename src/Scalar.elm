@@ -1,12 +1,13 @@
 module Scalar exposing (Dollars, ProductCode, codecs)
 
 import Api.Scalar exposing (defaultCodecs)
+import Dollars
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
 
 type alias Dollars =
-    Int
+    Dollars.Dollars
 
 
 type alias ProductCode =
@@ -16,9 +17,6 @@ type alias ProductCode =
 codecs : Api.Scalar.Codecs Dollars ProductCode
 codecs =
     Api.Scalar.defineCodecs
-        { codecDollars =
-            { encoder = \cents -> Encode.int cents
-            , decoder = Decode.int
-            }
+        { codecDollars = Dollars.codec
         , codecProductCode = defaultCodecs.codecProductCode
         }
