@@ -14,7 +14,7 @@ import Graphql.Operation exposing (RootQuery)
 import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, hardcoded, with)
 import Helpers.Main
-import Product
+import Product exposing (Product)
 import RemoteData exposing (RemoteData)
 import Request exposing (Response)
 
@@ -89,10 +89,25 @@ view : Model -> Browser.Document Msg
 view model =
     { title = "The Elm Shoppe"
     , body =
-        Element.row [] [ discountInputView model ]
+        Element.column [ Element.spacing 15 ]
+            [ Element.text "Products"
+            , productsView model.products
+            , discountInputView model
+            ]
             |> Element.layout []
             |> List.singleton
     }
+
+
+productsView : Response (List Product) -> Element Msg
+productsView productsResponse =
+    case productsResponse of
+        RemoteData.Success products ->
+            List.map Product.view products
+                |> Element.column []
+
+        _ ->
+            Element.none
 
 
 discountInputView : Model -> Element Msg
@@ -125,5 +140,5 @@ inputView model =
         { onChange = ChangedDiscountCode
         , text = model.discountCode
         , placeholder = Nothing
-        , label = Element.Input.labelLeft [] Element.none
+        , label = Element.Input.labelLeft [ Element.centerY ] (Element.text "Discount Code")
         }

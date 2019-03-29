@@ -21,5 +21,6 @@ selection =
 
 
 view : Product -> Element msg
-view product =
-    Element.none
+view (Product (Api.Scalar.ProductCode rawCode)) =
+    -- Element.none
+    Element.text rawCode
