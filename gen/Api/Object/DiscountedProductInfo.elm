@@ -8,7 +8,6 @@ import Api.InputObject
 import Api.Interface
 import Api.Object
 import Api.Scalar
-import Api.ScalarCodecs
 import Api.Union
 import Graphql.Internal.Builder.Argument as Argument exposing (Argument)
 import Graphql.Internal.Builder.Object as Object
@@ -17,15 +16,16 @@ import Graphql.Operation exposing (RootMutation, RootQuery, RootSubscription)
 import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet exposing (SelectionSet)
 import Json.Decode as Decode
+import Scalar
 
 
 {-| The discounted product price.
 -}
-discountedPrice : SelectionSet Int Api.Object.DiscountedProductInfo
+discountedPrice : SelectionSet Scalar.Dollars Api.Object.DiscountedProductInfo
 discountedPrice =
-    Object.selectionForField "Int" "discountedPrice" [] Decode.int
+    Object.selectionForField "Scalar.Dollars" "discountedPrice" [] (Scalar.codecs |> Api.Scalar.unwrapCodecs |> .codecDollars |> .decoder)
 
 
-appliesTo : SelectionSet Api.ScalarCodecs.ProductCode Api.Object.DiscountedProductInfo
+appliesTo : SelectionSet Scalar.ProductCode Api.Object.DiscountedProductInfo
 appliesTo =
-    Object.selectionForField "ScalarCodecs.ProductCode" "appliesTo" [] (Api.ScalarCodecs.codecs |> Api.Scalar.unwrapCodecs |> .codecProductCode |> .decoder)
+    Object.selectionForField "Scalar.ProductCode" "appliesTo" [] (Scalar.codecs |> Api.Scalar.unwrapCodecs |> .codecProductCode |> .decoder)

@@ -7,7 +7,7 @@ type DiscountedProductInfo {
   appliesTo: ProductCode!
 
   """The discounted product price."""
-  discountedPrice: Int!
+  discountedPrice: Dollars!
 }
 
 """
@@ -39,6 +39,9 @@ type DiscountNotFound {
   ignore: Int
 }
 
+"""Cents in USD."""
+scalar Dollars
+
 """A product."""
 type Product {
   code: ProductCode!
@@ -50,7 +53,7 @@ type Product {
   name: String!
 
   """The full product price."""
-  price: Int!
+  price: Dollars!
 }
 
 scalar ProductCode

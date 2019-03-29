@@ -4,7 +4,7 @@ export const Product = objectType({
   name: "Product",
   description: "A product.",
   definition(t) {
-    t.int("price", {
+    t.dollars("price", {
       nullable: false,
       description: "The full product price."
     });

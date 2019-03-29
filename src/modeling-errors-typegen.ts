@@ -7,6 +7,7 @@
 import { core } from "nexus"
 declare global {
   interface NexusGenCustomDefinitionMethods<TypeName extends string> {
+    dollars<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Dollars";
     productCode<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "ProductCode";
   }
 }
@@ -31,13 +32,13 @@ export interface NexusGenRootTypes {
   }
   DiscountedProductInfo: { // root type
     appliesTo: any; // ProductCode!
-    discountedPrice: number; // Int!
+    discountedPrice: any; // Dollars!
   }
   Product: { // root type
     code: any; // ProductCode!
     imageUrl: string; // String!
     name: string; // String!
-    price: number; // Int!
+    price: any; // Dollars!
   }
   Query: {};
   String: string;
@@ -45,6 +46,7 @@ export interface NexusGenRootTypes {
   Float: number;
   Boolean: boolean;
   ID: string;
+  Dollars: any;
   ProductCode: any;
   DiscountedProductInfoOrError: NexusGenRootTypes['DiscountedProductInfo'] | NexusGenRootTypes['DiscountExpired'] | NexusGenRootTypes['DiscountNotFound'];
 }
@@ -62,13 +64,13 @@ export interface NexusGenFieldTypes {
   }
   DiscountedProductInfo: { // field return type
     appliesTo: any; // ProductCode!
-    discountedPrice: number; // Int!
+    discountedPrice: any; // Dollars!
   }
   Product: { // field return type
     code: any; // ProductCode!
     imageUrl: string; // String!
     name: string; // String!
-    price: number; // Int!
+    price: any; // Dollars!
   }
   Query: { // field return type
     discount: NexusGenRootTypes['DiscountedProductInfo']; // DiscountedProductInfo!
@@ -104,7 +106,7 @@ export type NexusGenEnumNames = "DiscountErrorReason";
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "Float" | "ID" | "Int" | "ProductCode" | "String";
+export type NexusGenScalarNames = "Boolean" | "Dollars" | "Float" | "ID" | "Int" | "ProductCode" | "String";
 
 export type NexusGenUnionNames = "DiscountedProductInfoOrError";
 

@@ -4,7 +4,7 @@
   "scripts": {
     "start": "ts-node-dev --ignore-watch modeling-errors-typegen.ts --no-notify --transpileOnly --respawn ./src",
     "start-elm": "elm-live src/Main.elm --proxyPrefix /api --open --proxyHost http://localhost:4000",
-    "regen-graphql": "elm-graphql http://localhost:4000/ --output gen"
+    "regen-graphql": "elm-graphql http://localhost:4000/ --output gen --scalar-codecs Scalar"
   },
   "dependencies": {
     "apollo-server": "^2.2.0",
