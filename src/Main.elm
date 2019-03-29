@@ -64,7 +64,7 @@ update msg model =
             ( { model | discountInfo = response }, Cmd.none )
 
         ChangedDiscountCode newDiscountCode ->
-            ( model, Cmd.none )
+            ( { model | discountCode = newDiscountCode }, makeRequest newDiscountCode )
 
 
 main : Program Flags Model Msg

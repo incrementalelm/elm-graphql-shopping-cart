@@ -26,4 +26,21 @@ view { discountCode, discountInfo } =
             , placeholder = Nothing
             , label = Element.Input.labelLeft [] Element.none
             }
+        , discountInfoView discountInfo
         ]
+
+
+discountInfoView : RemoteData e Discount -> Element msg
+discountInfoView remoteDiscountInfo =
+    case remoteDiscountInfo of
+        RemoteData.NotAsked ->
+            Element.text "Discount code"
+
+        RemoteData.Loading ->
+            Element.text "Discount code..."
+
+        RemoteData.Failure e ->
+            Element.text "Discount code X"
+
+        RemoteData.Success discount ->
+            Element.text "Discount code"
