@@ -41,6 +41,9 @@ type DiscountNotFound {
 type Product {
   code: ProductCode!
 
+  """The product name."""
+  name: String!
+
   """The full product price."""
   price: Int!
 }

@@ -8,19 +8,23 @@ const paymentArgs = {
   })
 };
 
+const products = [
+  { code: "elm-bonsai-tree", name: "Elm Bonsai Tree", price: 123 }
+];
+
 export const Query = objectType({
   name: "Query",
   definition(t) {
     t.list.field("products", {
       type: "Product",
       resolve() {
-        return Promise.resolve([{ code: "elm-bonsai-tree", price: 123 }]);
+        return Promise.resolve(products);
       }
     });
     t.list.field("shoppingCartItems", {
       type: "Product",
       resolve() {
-        return Promise.resolve([{ code: "elm-bonsai-tree", price: 123 }]);
+        return Promise.resolve([]);
       }
     });
     t.string("userid", () => "dillon");

@@ -9,5 +9,6 @@ export const Product = objectType({
       description: "The full product price."
     });
     t.productCode("code");
+    t.string("name", { description: "The product name." });
   }
 });
