@@ -28,8 +28,8 @@ query discountCode =
         Discount.selection
 
 
-makeRequest : String -> Cmd Msg
-makeRequest discountCode =
+discountRequest : String -> Cmd Msg
+discountRequest discountCode =
     query discountCode
         |> Request.query GotResponse
 
@@ -65,7 +65,7 @@ update msg model =
             ( { model | discountInfo = response }, Cmd.none )
 
         ChangedDiscountCode newDiscountCode ->
-            ( { model | discountCode = newDiscountCode }, makeRequest newDiscountCode )
+            ( { model | discountCode = newDiscountCode }, discountRequest newDiscountCode )
 
 
 main : Program Flags Model Msg
