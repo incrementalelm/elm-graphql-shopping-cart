@@ -9,12 +9,27 @@ import RemoteData exposing (RemoteData)
 
 
 type Discount
-    = Discount
+    = Discount DiscountStatus
+
+
+type DiscountStatus
+    = Expired
+    | Valid
+    | NotFound
 
 
 selection : SelectionSet.SelectionSet Discount Api.Union.DiscountedProductInfoOrError
 selection =
-    SelectionSet.succeed Discount
+    Api.Union.DiscountedProductInfoOrError.fragments
+        { onDiscountExpired = SelectionSet.succeed Expired
+        , onDiscountNotFound = SelectionSet.succeed NotFound
+        , onDiscountedProductInfo = SelectionSet.succeed Valid
+        }
+        |> SelectionSet.map Discount
+
+
+
+-- SelectionSet.succeed Discount
 
 
 view : { model | discountCode : String, discountInfo : RemoteData e Discount } -> Element String
@@ -34,13 +49,23 @@ discountInfoView : RemoteData e Discount -> Element msg
 discountInfoView remoteDiscountInfo =
     case remoteDiscountInfo of
         RemoteData.NotAsked ->
-            Element.text "Discount code"
+            Element.text ""
 
         RemoteData.Loading ->
-            Element.text "Discount code..."
+            Element.text "..."
 
         RemoteData.Failure e ->
-            Element.text "Discount code X"
+            Element.text "Failed to load"
 
         RemoteData.Success discount ->
-            Element.text "Discount code"
+            (case discount of
+                Discount Expired ->
+                    "Expired"
+
+                Discount Valid ->
+                    "Valid"
+
+                Discount NotFound ->
+                    "NotFound"
+            )
+                |> Element.text
