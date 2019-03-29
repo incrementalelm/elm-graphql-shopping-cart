@@ -2,7 +2,7 @@
 -- https://github.com/dillonkearns/elm-graphql
 
 
-module Api.Query exposing (DiscountOrErrorRequiredArguments, DiscountRequiredArguments, discount, discountOrError, shoppingCartItems, userid)
+module Api.Query exposing (DiscountOrErrorRequiredArguments, DiscountRequiredArguments, discount, discountOrError, products, shoppingCartItems, userid)
 
 import Api.InputObject
 import Api.Interface
@@ -17,6 +17,11 @@ import Graphql.Operation exposing (RootMutation, RootQuery, RootSubscription)
 import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet exposing (SelectionSet)
 import Json.Decode as Decode exposing (Decoder)
+
+
+products : SelectionSet decodesTo Api.Object.Product -> SelectionSet (List decodesTo) RootQuery
+products object_ =
+    Object.selectionForCompositeField "products" [] object_ (identity >> Decode.list)
 
 
 shoppingCartItems : SelectionSet decodesTo Api.Object.Product -> SelectionSet (List decodesTo) RootQuery

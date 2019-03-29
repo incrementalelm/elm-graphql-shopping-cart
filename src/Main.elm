@@ -23,6 +23,12 @@ type alias Response =
     Discount.Discount
 
 
+productsRequest : Cmd Msg
+productsRequest =
+    Query.products Product.selection
+        |> Request.query GotProducts
+
+
 discountRequest : String -> Cmd Msg
 discountRequest discountCode =
     Query.discountOrError { discountCode = discountCode } Discount.selection
@@ -35,6 +41,7 @@ discountRequest discountCode =
 
 type Msg
     = GotResponse (RemoteData (Graphql.Http.Error Response) Response)
+    | GotProducts (RemoteData (Graphql.Http.Error (List Product.Product)) (List Product.Product))
     | ChangedDiscountCode String
 
 
@@ -50,7 +57,7 @@ type alias Flags =
 
 init : Flags -> ( Model, Cmd Msg )
 init _ =
-    ( { discountCode = "", discountInfo = RemoteData.NotAsked }, Cmd.none )
+    ( { discountCode = "", discountInfo = RemoteData.NotAsked }, productsRequest )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -61,6 +68,9 @@ update msg model =
 
         ChangedDiscountCode newDiscountCode ->
             ( { model | discountCode = newDiscountCode }, discountRequest newDiscountCode )
+
+        GotProducts _ ->
+            Debug.todo "handle GotProducts _"
 
 
 main : Program Flags Model Msg

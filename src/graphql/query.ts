@@ -11,12 +11,16 @@ const paymentArgs = {
 export const Query = objectType({
   name: "Query",
   definition(t) {
+    t.list.field("products", {
+      type: "Product",
+      resolve() {
+        return Promise.resolve([{ code: "elm-bonsai-tree", price: 123 }]);
+      }
+    });
     t.list.field("shoppingCartItems", {
       type: "Product",
       resolve() {
-        // return ["elm-bonsai-tree"];
         return Promise.resolve([{ code: "elm-bonsai-tree", price: 123 }]);
-        // return null;
       }
     });
     t.string("userid", () => "dillon");
