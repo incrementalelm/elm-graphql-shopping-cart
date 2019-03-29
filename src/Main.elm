@@ -7,6 +7,9 @@ import Api.Union.DiscountedProductInfoOrError
 import Browser
 import Discount exposing (Discount)
 import Element exposing (Element)
+import Element.Background
+import Element.Border
+import Element.Events
 import Element.Input
 import Graphql.Document as Document
 import Graphql.Http
@@ -56,7 +59,7 @@ type alias Flags =
 init : Flags -> ( Model, Cmd Msg )
 init _ =
     ( { discountCode = ""
-      , discountInfo = RemoteData.NotAsked
+      , discountInfo = RemoteData.Success Discount.none
       , products = RemoteData.Loading
       }
     , productsRequest
@@ -70,7 +73,7 @@ update msg model =
             ( { model | discountInfo = response }, Cmd.none )
 
         ChangedDiscountCode newDiscountCode ->
-            ( { model | discountCode = newDiscountCode }, discountRequest newDiscountCode )
+            ( { model | discountCode = newDiscountCode }, Cmd.none )
 
         GotProducts productsResponse ->
             ( { model | products = productsResponse }, Cmd.none )
@@ -124,8 +127,19 @@ discountInputView : Model -> Element Msg
 discountInputView model =
     Element.row [ Element.width Element.fill, Element.spacing 20 ]
         [ inputView model
+        , applyButton
         , discountView model
         ]
+
+
+applyButton : Element Msg
+applyButton =
+    Element.el
+        [ Element.Border.width 2
+        , Element.padding 10
+        , Element.Events.onClick ApplyDiscountCode
+        ]
+        (Element.text "Apply")
 
 
 discountView : { model | discountCode : String, discountInfo : RemoteData e Discount.Discount } -> Element msg

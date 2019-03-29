@@ -1,4 +1,4 @@
-module Discount exposing (Discount, DiscountInfo, apply, selection, view)
+module Discount exposing (Discount, DiscountInfo, apply, none, selection, view)
 
 import Api.Object.DiscountedProductInfo
 import Api.Scalar exposing (ProductCode)
@@ -19,6 +19,12 @@ type DiscountStatus
     = Expired
     | Valid Dollars ProductCode
     | NotFound
+    | None
+
+
+none : Discount
+none =
+    Discount None
 
 
 type alias DiscountInfo =
@@ -64,5 +70,8 @@ view discount =
 
         Discount NotFound ->
             "NotFound"
+
+        Discount None ->
+            ""
     )
         |> Element.text
