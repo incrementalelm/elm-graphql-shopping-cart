@@ -62,10 +62,18 @@ export const Query = objectType({
       resolve: (_, { discountCode }) => {
         switch (discountCode) {
           case "secret": {
-            return { discountedPrice: 199, type: "DiscountedProductInfo" };
+            return {
+              discountedPrice: 199,
+              type: "DiscountedProductInfo",
+              appliesTo: "painting"
+            };
           }
           case "secret2": {
-            return { discountedPrice: 149, type: "DiscountedProductInfo" };
+            return {
+              discountedPrice: 149,
+              type: "DiscountedProductInfo",
+              appliesTo: "bonsai"
+            };
           }
           case "merryxmas2018": {
             return { expiredAt: "abc", type: "DiscountExpired" };
