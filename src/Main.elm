@@ -44,6 +44,7 @@ type Msg
 type alias Model =
     { discountCode : String
     , discountInfo : Response Discount
+    , products : Response (List Product.Product)
     }
 
 
@@ -53,7 +54,12 @@ type alias Flags =
 
 init : Flags -> ( Model, Cmd Msg )
 init _ =
-    ( { discountCode = "", discountInfo = RemoteData.NotAsked }, productsRequest )
+    ( { discountCode = ""
+      , discountInfo = RemoteData.NotAsked
+      , products = RemoteData.Loading
+      }
+    , productsRequest
+    )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -65,8 +71,8 @@ update msg model =
         ChangedDiscountCode newDiscountCode ->
             ( { model | discountCode = newDiscountCode }, discountRequest newDiscountCode )
 
-        GotProducts _ ->
-            Debug.todo "handle GotProducts _"
+        GotProducts productsResponse ->
+            ( { model | products = productsResponse }, Cmd.none )
 
 
 main : Program Flags Model Msg
