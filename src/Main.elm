@@ -91,7 +91,7 @@ view model =
     , body =
         Element.column [ Element.spacing 15 ]
             [ Element.text "Products"
-            , productsView model.products
+            , productsView model
             , discountInputView model
             ]
             |> Element.layout []
@@ -99,15 +99,21 @@ view model =
     }
 
 
-productsView : Response (List Product) -> Element Msg
-productsView productsResponse =
-    case productsResponse of
-        RemoteData.Success products ->
-            List.map Product.view products
+productsView : Model -> Element Msg
+productsView model =
+    case RemoteData.map2 Tuple.pair model.discountInfo model.products of
+        RemoteData.Success ( discount, products ) ->
+            List.map (Product.view discount) products
                 |> Element.column []
 
-        _ ->
-            Element.none
+        RemoteData.Failure error ->
+            Element.text <| Debug.toString error
+
+        RemoteData.Loading ->
+            Element.text "Loading..."
+
+        RemoteData.NotAsked ->
+            Element.text "Not asked..."
 
 
 discountInputView : Model -> Element Msg

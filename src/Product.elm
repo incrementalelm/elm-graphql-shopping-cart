@@ -4,6 +4,7 @@ import Api.Object
 import Api.Object.DiscountedProductInfo
 import Api.Object.Product
 import Api.Scalar
+import Discount exposing (Discount)
 import Element exposing (Element)
 import Element.Input
 import Graphql.SelectionSet as SelectionSet
@@ -32,8 +33,8 @@ selection =
         |> SelectionSet.map Product
 
 
-view : Product -> Element msg
-view (Product product) =
+view : Discount -> Product -> Element msg
+view discount (Product product) =
     Element.row [ Element.spacing 30 ]
         [ Element.image [ Element.width (Element.px 200) ] { src = product.imageUrl, description = product.name }
         , Element.text product.name

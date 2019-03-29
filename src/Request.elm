@@ -9,7 +9,7 @@ import RemoteData exposing (RemoteData)
 
 
 type alias Response data =
-    RemoteData (Graphql.Http.RawError data Http.Error) data
+    RemoteData (Graphql.Http.RawError () Http.Error) data
 
 
 query :
@@ -22,6 +22,7 @@ query msgConstructor querySelection =
         |> Graphql.Http.send
             (\result ->
                 result
+                    |> Graphql.Http.discardParsedErrorData
                     |> Graphql.Http.withSimpleHttpError
                     |> RemoteData.fromResult
                     |> msgConstructor
