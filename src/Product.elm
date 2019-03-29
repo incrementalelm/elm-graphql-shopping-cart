@@ -11,20 +11,28 @@ import RemoteData exposing (RemoteData)
 
 
 type Product
-    = Product Api.Scalar.ProductCode String String
+    = Product Details
+
+
+type alias Details =
+    { code : Api.Scalar.ProductCode
+    , name : String
+    , imageUrl : String
+    }
 
 
 selection : SelectionSet.SelectionSet Product Api.Object.Product
 selection =
-    SelectionSet.map3 Product
+    SelectionSet.map3 Details
         Api.Object.Product.code
         Api.Object.Product.name
         Api.Object.Product.imageUrl
+        |> SelectionSet.map Product
 
 
 view : Product -> Element msg
-view (Product (Api.Scalar.ProductCode rawCode) productName imageUrl) =
+view (Product product) =
     Element.row [ Element.spacing 30 ]
-        [ Element.image [ Element.width (Element.px 200) ] { src = imageUrl, description = productName }
-        , Element.text productName
+        [ Element.image [ Element.width (Element.px 200) ] { src = product.imageUrl, description = product.name }
+        , Element.text product.name
         ]
