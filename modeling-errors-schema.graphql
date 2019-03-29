@@ -4,6 +4,8 @@
 
 """The product information after applying a discount code."""
 type DiscountedProductInfo {
+  appliesTo: ProductCode!
+
   """The discounted product price."""
   discountedPrice: Int!
 }

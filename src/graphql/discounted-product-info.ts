@@ -8,5 +8,6 @@ export const DiscountedProductInfo = objectType({
       nullable: false,
       description: "The discounted product price."
     });
+    t.productCode("appliesTo");
   }
 });

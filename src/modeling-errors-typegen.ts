@@ -30,6 +30,7 @@ export interface NexusGenRootTypes {
     ignore?: number | null; // Int
   }
   DiscountedProductInfo: { // root type
+    appliesTo: any; // ProductCode!
     discountedPrice: number; // Int!
   }
   Product: { // root type
@@ -60,6 +61,7 @@ export interface NexusGenFieldTypes {
     ignore: number | null; // Int
   }
   DiscountedProductInfo: { // field return type
+    appliesTo: any; // ProductCode!
     discountedPrice: number; // Int!
   }
   Product: { // field return type

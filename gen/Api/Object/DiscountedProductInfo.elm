@@ -2,7 +2,7 @@
 -- https://github.com/dillonkearns/elm-graphql
 
 
-module Api.Object.DiscountedProductInfo exposing (discountedPrice)
+module Api.Object.DiscountedProductInfo exposing (appliesTo, discountedPrice)
 
 import Api.InputObject
 import Api.Interface
@@ -24,3 +24,8 @@ import Json.Decode as Decode
 discountedPrice : SelectionSet Int Api.Object.DiscountedProductInfo
 discountedPrice =
     Object.selectionForField "Int" "discountedPrice" [] Decode.int
+
+
+appliesTo : SelectionSet Api.ScalarCodecs.ProductCode Api.Object.DiscountedProductInfo
+appliesTo =
+    Object.selectionForField "ScalarCodecs.ProductCode" "appliesTo" [] (Api.ScalarCodecs.codecs |> Api.Scalar.unwrapCodecs |> .codecProductCode |> .decoder)
