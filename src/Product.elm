@@ -40,12 +40,12 @@ view discount ((Product productDetails) as product) =
     Element.row [ Element.spacing 30 ]
         [ Element.image [ Element.width (Element.px 100) ] { src = productDetails.imageUrl, description = productDetails.name }
         , Element.text productDetails.name
-        , discountedPriceView discount product
+        , priceView discount product
         ]
 
 
-discountedPriceView : Discount -> Product -> Element msg
-discountedPriceView discount (Product productDetails) =
+priceView : Discount -> Product -> Element msg
+priceView discount (Product productDetails) =
     let
         applied =
             Discount.apply discount productDetails.code
