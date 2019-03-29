@@ -1,5 +1,3 @@
-![](./img/cover.jpg)
-
 ## Setup
 
 Run both of these commands:
