@@ -2,9 +2,18 @@
 -- https://github.com/dillonkearns/elm-graphql
 
 
-module Api.ScalarCodecs exposing (placeholder)
+module Api.ScalarCodecs exposing (ProductCode, codecs)
+
+import Api.Scalar exposing (defaultCodecs)
+import Json.Decode as Decode exposing (Decoder)
 
 
-placeholder : String
-placeholder =
-    ""
+type alias ProductCode =
+    Api.Scalar.ProductCode
+
+
+codecs : Api.Scalar.Codecs ProductCode
+codecs =
+    Api.Scalar.defineCodecs
+        { codecProductCode = defaultCodecs.codecProductCode
+        }

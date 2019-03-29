@@ -19,9 +19,9 @@ import Graphql.SelectionSet exposing (SelectionSet)
 import Json.Decode as Decode exposing (Decoder)
 
 
-shoppingCartItems : SelectionSet (List String) RootQuery
-shoppingCartItems =
-    Object.selectionForField "(List String)" "shoppingCartItems" [] (Decode.string |> Decode.list)
+shoppingCartItems : SelectionSet decodesTo Api.Object.Product -> SelectionSet (List decodesTo) RootQuery
+shoppingCartItems object_ =
+    Object.selectionForCompositeField "shoppingCartItems" [] object_ (identity >> Decode.list)
 
 
 userid : SelectionSet String RootQuery

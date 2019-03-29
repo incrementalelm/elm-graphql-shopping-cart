@@ -2,9 +2,49 @@
 -- https://github.com/dillonkearns/elm-graphql
 
 
-module Api.Scalar exposing (placeholder)
+module Api.Scalar exposing (Codecs, ProductCode(..), defaultCodecs, defineCodecs, unwrapCodecs, unwrapEncoder)
+
+import Graphql.Codec exposing (Codec)
+import Graphql.Internal.Builder.Object as Object
+import Graphql.Internal.Encode
+import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 
 
-placeholder : String
-placeholder =
-    ""
+type ProductCode
+    = ProductCode String
+
+
+defineCodecs :
+    { codecProductCode : Codec valueProductCode }
+    -> Codecs valueProductCode
+defineCodecs definitions =
+    Codecs definitions
+
+
+unwrapCodecs :
+    Codecs valueProductCode
+    -> { codecProductCode : Codec valueProductCode }
+unwrapCodecs (Codecs unwrappedCodecs) =
+    unwrappedCodecs
+
+
+unwrapEncoder getter (Codecs unwrappedCodecs) =
+    (unwrappedCodecs |> getter |> .encoder) >> Graphql.Internal.Encode.fromJson
+
+
+type Codecs valueProductCode
+    = Codecs (RawCodecs valueProductCode)
+
+
+type alias RawCodecs valueProductCode =
+    { codecProductCode : Codec valueProductCode }
+
+
+defaultCodecs : RawCodecs ProductCode
+defaultCodecs =
+    { codecProductCode =
+        { encoder = \(ProductCode raw) -> Encode.string raw
+        , decoder = Object.scalarDecoder |> Decode.map ProductCode
+        }
+    }

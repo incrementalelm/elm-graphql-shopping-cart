@@ -2,7 +2,7 @@
 -- https://github.com/dillonkearns/elm-graphql
 
 
-module Api.Object exposing (DiscountExpired(..), DiscountNotFound(..), DiscountedProductInfo(..))
+module Api.Object exposing (DiscountExpired(..), DiscountNotFound(..), DiscountedProductInfo(..), Product(..))
 
 
 type DiscountExpired
@@ -15,3 +15,7 @@ type DiscountNotFound
 
 type DiscountedProductInfo
     = DiscountedProductInfo
+
+
+type Product
+    = Product
