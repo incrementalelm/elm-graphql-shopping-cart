@@ -37,6 +37,16 @@ type DiscountNotFound {
   ignore: Int
 }
 
+"""A product."""
+type Product {
+  code: ProductCode!
+
+  """The full product price."""
+  price: Int!
+}
+
+scalar ProductCode
+
 type Query {
   discount(
     """Cardholder name"""
@@ -46,6 +56,6 @@ type Query {
     """Cardholder name"""
     discountCode: String!
   ): DiscountedProductInfoOrError!
-  shoppingCartItems: [String!]!
+  shoppingCartItems: [Product!]!
   userid: String!
 }

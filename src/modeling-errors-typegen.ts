@@ -3,8 +3,13 @@
  * Do not make changes to this file directly
  */
 
-import * as swapi from "./types/backingTypes"
 
+import { core } from "nexus"
+declare global {
+  interface NexusGenCustomDefinitionMethods<TypeName extends string> {
+    productCode<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "ProductCode";
+  }
+}
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
@@ -27,12 +32,17 @@ export interface NexusGenRootTypes {
   DiscountedProductInfo: { // root type
     discountedPrice: number; // Int!
   }
+  Product: { // root type
+    code: any; // ProductCode!
+    price: number; // Int!
+  }
   Query: {};
   String: string;
   Int: number;
   Float: number;
   Boolean: boolean;
   ID: string;
+  ProductCode: any;
   DiscountedProductInfoOrError: NexusGenRootTypes['DiscountedProductInfo'] | NexusGenRootTypes['DiscountExpired'] | NexusGenRootTypes['DiscountNotFound'];
 }
 
@@ -50,10 +60,14 @@ export interface NexusGenFieldTypes {
   DiscountedProductInfo: { // field return type
     discountedPrice: number; // Int!
   }
+  Product: { // field return type
+    code: any; // ProductCode!
+    price: number; // Int!
+  }
   Query: { // field return type
     discount: NexusGenRootTypes['DiscountedProductInfo']; // DiscountedProductInfo!
     discountOrError: NexusGenRootTypes['DiscountedProductInfoOrError']; // DiscountedProductInfoOrError!
-    shoppingCartItems: string[]; // [String!]!
+    shoppingCartItems: NexusGenRootTypes['Product'][]; // [Product!]!
     userid: string; // String!
   }
 }
@@ -75,7 +89,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "DiscountExpired" | "DiscountNotFound" | "DiscountedProductInfo" | "Query";
+export type NexusGenObjectNames = "DiscountExpired" | "DiscountNotFound" | "DiscountedProductInfo" | "Product" | "Query";
 
 export type NexusGenInputNames = never;
 
@@ -83,7 +97,7 @@ export type NexusGenEnumNames = "DiscountErrorReason";
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "Float" | "ID" | "Int" | "String";
+export type NexusGenScalarNames = "Boolean" | "Float" | "ID" | "Int" | "ProductCode" | "String";
 
 export type NexusGenUnionNames = "DiscountedProductInfoOrError";
 

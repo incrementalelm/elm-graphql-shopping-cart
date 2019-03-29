@@ -16,7 +16,7 @@ export const schema = makeSchema({
     sources: [
       {
         source: path.join(__dirname, "./types/backingTypes.ts"),
-        alias: "swapi"
+        alias: "shoppingCart"
       }
     ],
     contextType: "swapi.ContextType"

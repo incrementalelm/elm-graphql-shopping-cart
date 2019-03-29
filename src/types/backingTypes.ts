@@ -1,4 +1,4 @@
-import { NexusGenEnums } from "../star-wars-typegen";
+import { NexusGenEnums } from "../modeling-errors-typegen";
 
 /**
  * These are Flow types which correspond to the schema.
