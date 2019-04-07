@@ -14,3 +14,18 @@ export const Dollars = nexus.scalarType({
     return value;
   }
 });
+
+export const ProductId = nexus.scalarType({
+  name: "ProductId",
+  asNexusMethod: "productId",
+  description: "An int representing the product id number.",
+  parseValue(value: number) {
+    return value;
+  },
+  serialize(value: number) {
+    return value;
+  },
+  parseLiteral(value: number) {
+    return value;
+  }
+});

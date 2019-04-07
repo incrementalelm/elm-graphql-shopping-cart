@@ -1,7 +1,10 @@
-module ProductId exposing (ProductId, linkTo, selection)
+module ProductId exposing (ProductId, codec, linkTo, selection)
 
 import Element exposing (Element)
+import Graphql.Codec exposing (Codec)
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
+import Json.Decode exposing (Decoder)
+import Json.Encode
 
 
 type ProductId
@@ -19,3 +22,20 @@ linkTo productId attributes label =
         { url = "/item"
         , label = label
         }
+
+
+codec : Codec ProductId
+codec =
+    { encoder = encode
+    , decoder = decoder
+    }
+
+
+decoder : Decoder ProductId
+decoder =
+    Json.Decode.succeed ProductId
+
+
+encode : ProductId -> Json.Encode.Value
+encode ProductId =
+    Json.Encode.null

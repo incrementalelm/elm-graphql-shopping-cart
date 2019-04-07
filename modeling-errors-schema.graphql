@@ -45,6 +45,7 @@ scalar Dollars
 """A product."""
 type Product {
   code: ProductCode!
+  id: ProductId!
 
   """Preview image for product."""
   imageUrl: String!
@@ -57,6 +58,9 @@ type Product {
 }
 
 scalar ProductCode
+
+"""An int representing the product id number."""
+scalar ProductId
 
 type Query {
   discount(

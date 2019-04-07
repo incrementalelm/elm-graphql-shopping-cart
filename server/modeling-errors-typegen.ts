@@ -9,6 +9,7 @@ declare global {
   interface NexusGenCustomDefinitionMethods<TypeName extends string> {
     dollars<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Dollars";
     productCode<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "ProductCode";
+    productId<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "ProductId";
   }
 }
 
@@ -36,6 +37,7 @@ export interface NexusGenRootTypes {
   }
   Product: { // root type
     code: any; // ProductCode!
+    id: any; // ProductId!
     imageUrl: string; // String!
     name: string; // String!
     price: any; // Dollars!
@@ -48,6 +50,7 @@ export interface NexusGenRootTypes {
   ID: string;
   Dollars: any;
   ProductCode: any;
+  ProductId: any;
   DiscountedProductInfoOrError: NexusGenRootTypes['DiscountedProductInfo'] | NexusGenRootTypes['DiscountExpired'] | NexusGenRootTypes['DiscountNotFound'];
 }
 
@@ -68,6 +71,7 @@ export interface NexusGenFieldTypes {
   }
   Product: { // field return type
     code: any; // ProductCode!
+    id: any; // ProductId!
     imageUrl: string; // String!
     name: string; // String!
     price: any; // Dollars!
@@ -106,7 +110,7 @@ export type NexusGenEnumNames = "DiscountErrorReason";
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "Dollars" | "Float" | "ID" | "Int" | "ProductCode" | "String";
+export type NexusGenScalarNames = "Boolean" | "Dollars" | "Float" | "ID" | "Int" | "ProductCode" | "ProductId" | "String";
 
 export type NexusGenUnionNames = "DiscountedProductInfoOrError";
 
