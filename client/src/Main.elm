@@ -37,6 +37,7 @@ type alias Model =
 
 type SubModel
     = HomeModel Page.Home.Model
+    | ProductDetailModel Page.ProductDetail.Model
 
 
 type alias Flags =
@@ -75,7 +76,11 @@ update msg model =
             Page.Home.update homeMsg subModel
                 |> updateWith HomeModel HomeMsg model
 
-        ( ProductDetailMsg subMsg, _ ) ->
+        ( ProductDetailMsg subMsg, ProductDetailModel subModel ) ->
+            Page.ProductDetail.update subMsg subModel
+                |> updateWith ProductDetailModel ProductDetailMsg model
+
+        ( _, _ ) ->
             ( model, Cmd.none )
 
 
@@ -106,6 +111,10 @@ view model =
             HomeModel subModel ->
                 Page.Home.view subModel
                     |> Element.map HomeMsg
+
+            ProductDetailModel subModel ->
+                Page.ProductDetail.view subModel
+                    |> Element.map ProductDetailMsg
         )
             |> Element.layout []
             |> List.singleton
