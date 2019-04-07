@@ -31,7 +31,7 @@ selection =
         Api.Object.Product.name
         Api.Object.Product.imageUrl
         Api.Object.Product.price
-        ProductId.selection
+        Api.Object.Product.id
         |> SelectionSet.map Product
 
 

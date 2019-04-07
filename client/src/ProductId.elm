@@ -1,4 +1,4 @@
-module ProductId exposing (ProductId, codec, linkTo, selection)
+module ProductId exposing (ProductId, codec, linkTo)
 
 import Element exposing (Element)
 import Graphql.Codec exposing (Codec)
@@ -9,11 +9,6 @@ import Json.Encode
 
 type ProductId
     = ProductId
-
-
-selection : SelectionSet ProductId typeContext
-selection =
-    SelectionSet.succeed ProductId
 
 
 linkTo : ProductId -> List (Element.Attribute msg) -> Element msg -> Element msg
