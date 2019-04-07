@@ -14,9 +14,3 @@ export const Dollars = nexus.scalarType({
     return value;
   }
 });
-
-// ({
-//   name: "DiscountErrorReason",
-//   description: "Reason that discount code cannot be applied.",
-//   members: LookupErrorReasons
-// });
