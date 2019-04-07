@@ -8,6 +8,7 @@ import Dollars exposing (Dollars)
 import Element exposing (Element)
 import Element.Font
 import Graphql.SelectionSet as SelectionSet
+import ProductId exposing (ProductId)
 
 
 type Product
@@ -19,16 +20,18 @@ type alias Details =
     , name : String
     , imageUrl : String
     , price : Dollars
+    , id : ProductId
     }
 
 
 selection : SelectionSet.SelectionSet Product Api.Object.Product
 selection =
-    SelectionSet.map4 Details
+    SelectionSet.map5 Details
         Api.Object.Product.code
         Api.Object.Product.name
         Api.Object.Product.imageUrl
         Api.Object.Product.price
+        ProductId.selection
         |> SelectionSet.map Product
 
 

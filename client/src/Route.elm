@@ -6,4 +6,4 @@ import Url.Parser as Parser
 
 type Route
     = Home
-    | Product ProductId
+    | Product

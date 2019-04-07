@@ -91,7 +91,9 @@ update msg model =
                     ( model, Browser.Navigation.load href )
 
         UrlChanged url ->
-            ( model, Cmd.none )
+            ( { model | route = Route.Product }
+            , Cmd.none
+            )
 
 
 main : Program Flags Model Msg
