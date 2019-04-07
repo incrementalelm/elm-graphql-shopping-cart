@@ -30,8 +30,7 @@ update msg model =
 
 view model =
     Element.column [ Element.spacing 15 ]
-        [ Element.text "Products"
-        , productsView model
+        [ productsView model
         ]
 
 
