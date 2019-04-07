@@ -11,6 +11,7 @@ import Element.Input
 import Product exposing (Product)
 import RemoteData exposing (RemoteData)
 import Request exposing (Response)
+import Route exposing (Route)
 import Url exposing (Url)
 
 
@@ -44,6 +45,7 @@ type alias Model =
     , discountInfo : Response Discount
     , products : Response (List Product.Product)
     , navKey : Browser.Navigation.Key
+    , route : Route
     }
 
 
@@ -57,6 +59,7 @@ init _ url navKey =
       , discountInfo = RemoteData.Success Discount.none
       , products = RemoteData.Loading
       , navKey = navKey
+      , route = Route.Home
       }
     , productsRequest
     )
@@ -111,6 +114,7 @@ view model =
             [ Element.text "Products"
             , productsView model
             , discountInputView model
+            , model.route |> Debug.toString |> Element.text
             ]
             |> Element.layout []
             |> List.singleton
