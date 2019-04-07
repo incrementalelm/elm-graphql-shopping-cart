@@ -37,6 +37,7 @@ export interface NexusGenRootTypes {
   }
   Product: { // root type
     code: any; // ProductCode!
+    description: string; // String!
     id: any; // ProductId!
     imageUrl: string; // String!
     name: string; // String!
@@ -71,6 +72,7 @@ export interface NexusGenFieldTypes {
   }
   Product: { // field return type
     code: any; // ProductCode!
+    description: string; // String!
     id: any; // ProductId!
     imageUrl: string; // String!
     name: string; // String!

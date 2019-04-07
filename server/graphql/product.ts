@@ -9,6 +9,7 @@ export const Product = objectType({
       description: "The full product price."
     });
     t.productCode("code");
+    t.string("description");
     t.productId("id");
     t.string("name", { description: "The product name." });
     t.string("imageUrl", { description: "Preview image for product." });

@@ -13,11 +13,11 @@ import Scalar exposing (ProductId)
 
 
 type Msg
-    = GotProduct (Response (Maybe Product.Product))
+    = GotProduct (Response (Maybe (Product Product.Detail)))
 
 
 type alias Model =
-    { products : Response (Maybe Product.Product)
+    { products : Response (Maybe (Product Product.Detail))
     }
 
 
@@ -65,5 +65,5 @@ productsView model =
 
 productsRequest : ProductId -> Cmd Msg
 productsRequest id =
-    Query.product { id = id } Product.selection
+    Query.product { id = id } Product.detailSelection
         |> Request.query GotProduct

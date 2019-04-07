@@ -13,7 +13,7 @@ import Request exposing (Response)
 
 type Msg
     = GotResponse (Response Discount)
-    | GotProducts (Response (List Product.Product))
+    | GotProducts (Response (List (Product Product.Summary)))
     | ChangedDiscountCode String
     | ApplyDiscountCode
 
@@ -21,7 +21,7 @@ type Msg
 type alias Model =
     { discountCode : String
     , discountInfo : Response Discount
-    , products : Response (List Product.Product)
+    , products : Response (List (Product Product.Summary))
     }
 
 

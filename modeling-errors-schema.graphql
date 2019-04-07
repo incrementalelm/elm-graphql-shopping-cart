@@ -45,6 +45,7 @@ scalar Dollars
 """A product."""
 type Product {
   code: ProductCode!
+  description: String!
   id: ProductId!
 
   """Preview image for product."""

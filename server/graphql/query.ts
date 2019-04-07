@@ -14,6 +14,7 @@ const products = [
     name: "Elm Bonsai Tree",
     price: 200,
     id: 1,
+    description: "A lovely Japanese-style Elm Bonsai Tree!",
     imageUrl:
       "https://images-na.ssl-images-amazon.com/images/I/71ZQCpI8v2L._SX425_.jpg"
   },
@@ -22,6 +23,7 @@ const products = [
     name: "Elm Painting",
     price: 350,
     id: 2,
+    description: "A lovely Japanese-style Elm Bonsai Tree!",
     imageUrl:
       "https://images.fineartamerica.com/images-medium-large-5/american-elm-tree-shweta-mahajan.jpg"
   },
@@ -30,6 +32,7 @@ const products = [
     name: "Vintage Elm Tree Photo",
     price: 50,
     id: 3,
+    description: "A lovely Japanese-style Elm Bonsai Tree!",
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/1/19/Lovers%27_Elm%2C_Gwynne_estate%2C_Dufferin_Street.jpg"
   },
@@ -38,6 +41,7 @@ const products = [
     name: "Elm Seeds",
     price: 20,
     id: 4,
+    description: "A lovely Japanese-style Elm Bonsai Tree!",
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/7/76/Ulmus_glabra.jpg"
   }
