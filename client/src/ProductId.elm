@@ -34,4 +34,4 @@ decoder =
 
 encode : ProductId -> Json.Encode.Value
 encode (ProductId id) =
-    Json.Encode.null
+    Json.Encode.int id
