@@ -1,22 +1,12 @@
 module Main exposing (main)
 
-import Api.Enum.DiscountErrorReason as DiscountErrorReason exposing (DiscountErrorReason)
-import Api.Object.DiscountedProductInfo
 import Api.Query as Query
-import Api.Union.DiscountedProductInfoOrError
 import Browser
 import Discount exposing (Discount)
 import Element exposing (Element)
-import Element.Background
 import Element.Border
 import Element.Events
 import Element.Input
-import Graphql.Document as Document
-import Graphql.Http
-import Graphql.Operation exposing (RootQuery)
-import Graphql.OptionalArgument exposing (OptionalArgument(..))
-import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, hardcoded, with)
-import Helpers.Main
 import Product exposing (Product)
 import RemoteData exposing (RemoteData)
 import Request exposing (Response)
