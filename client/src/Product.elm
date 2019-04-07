@@ -78,13 +78,18 @@ view discount ((Product productDetails) as product) =
 
 detailView : Product Detail -> Element msg
 detailView ((Product productDetails) as product) =
-    Element.row [ Element.spacing 30 ]
+    Element.row [ Element.spacing 30, Element.width Element.fill ]
         [ Element.image [ Element.width (Element.px 250) ]
             { src = productDetails.imageUrl
             , description = productDetails.name
             }
-        , Element.text productDetails.name
-        , priceView Discount.none product
+        , Element.column [ Element.spacing 50 ]
+            [ Element.row [ Element.spaceEvenly, Element.width Element.fill ]
+                [ Element.text productDetails.name
+                , priceView Discount.none product
+                ]
+            , productDetails.extra |> (\(Detail { description }) -> description) |> Element.text
+            ]
         ]
 
 
