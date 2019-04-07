@@ -9,6 +9,8 @@
 - How do I do dropdowns?
 - How do I do manage translations for the content/internationalization?
 - How do I extract custom UI Elements?
+  - Buttons?
+- Forms?
 
 ### For `elm-graphql`
 
