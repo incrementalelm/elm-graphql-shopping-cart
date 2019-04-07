@@ -2,7 +2,7 @@
   "name": "modeling-errors-in-graphql-for-elm-apps",
   "version": "0.0.0",
   "scripts": {
-    "start": "ts-node-dev --ignore-watch modeling-errors-typegen.ts --no-notify --transpileOnly --respawn ./server",
+    "start": "cd server && ts-node-dev --ignore-watch modeling-errors-typegen.ts --no-notify --transpileOnly --respawn .",
     "start-elm": "cd client && elm-live src/Main.elm --proxyPrefix /api --open --proxyHost http://localhost:4000",
     "regen-graphql": "elm-graphql http://localhost:4000/ --output client/gen --scalar-codecs Scalar"
   },

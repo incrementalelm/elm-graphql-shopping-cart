@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "lib": ["es2015"],
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": ".",
     "strict": true,
     "skipLibCheck": true,
     "sourceMap": true
