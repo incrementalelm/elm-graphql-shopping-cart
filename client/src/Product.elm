@@ -51,7 +51,7 @@ view discount ((Product productDetails) as product) =
 detailView : Product -> Element msg
 detailView ((Product productDetails) as product) =
     Element.row [ Element.spacing 30 ]
-        [ Element.image [ Element.width (Element.px 100) ]
+        [ Element.image [ Element.width (Element.px 250) ]
             { src = productDetails.imageUrl
             , description = productDetails.name
             }
