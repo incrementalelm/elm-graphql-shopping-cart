@@ -51,7 +51,7 @@ productsView model =
                     Product.detailView foundProduct
 
                 Nothing ->
-                    Element.none
+                    Element.text "Product not found..."
 
         RemoteData.Failure error ->
             Element.text <| Debug.toString error
