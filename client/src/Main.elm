@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Api.Query as Query
 import Browser
+import Browser.Navigation
 import Discount exposing (Discount)
 import Element exposing (Element)
 import Element.Border
@@ -10,6 +11,7 @@ import Element.Input
 import Product exposing (Product)
 import RemoteData exposing (RemoteData)
 import Request exposing (Response)
+import Url exposing (Url)
 
 
 productsRequest : Cmd Msg
@@ -33,12 +35,15 @@ type Msg
     | GotProducts (Response (List Product.Product))
     | ChangedDiscountCode String
     | ApplyDiscountCode
+    | UrlRequested Browser.UrlRequest
+    | UrlChanged Url
 
 
 type alias Model =
     { discountCode : String
     , discountInfo : Response Discount
     , products : Response (List Product.Product)
+    , navKey : Browser.Navigation.Key
     }
 
 
@@ -46,11 +51,12 @@ type alias Flags =
     ()
 
 
-init : Flags -> ( Model, Cmd Msg )
-init _ =
+init : Flags -> Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
+init _ url navKey =
     ( { discountCode = ""
       , discountInfo = RemoteData.Success Discount.none
       , products = RemoteData.Loading
+      , navKey = navKey
       }
     , productsRequest
     )
@@ -71,14 +77,29 @@ update msg model =
         ApplyDiscountCode ->
             ( model, discountRequest model.discountCode )
 
+        UrlRequested urlRequest ->
+            case urlRequest of
+                Browser.Internal url ->
+                    ( model
+                    , Browser.Navigation.pushUrl model.navKey (Url.toString url)
+                    )
+
+                Browser.External href ->
+                    ( model, Browser.Navigation.load href )
+
+        UrlChanged url ->
+            ( model, Cmd.none )
+
 
 main : Program Flags Model Msg
 main =
-    Browser.document
+    Browser.application
         { init = init
         , view = view
         , update = update
         , subscriptions = \model -> Sub.none
+        , onUrlRequest = UrlRequested
+        , onUrlChange = UrlChanged
         }
 
 
