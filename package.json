@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ts-node-dev --ignore-watch modeling-errors-typegen.ts --no-notify --transpileOnly --respawn ./server",
-    "start-elm": "elm-live src/Main.elm --proxyPrefix /api --open --proxyHost http://localhost:4000",
-    "regen-graphql": "elm-graphql http://localhost:4000/ --output gen --scalar-codecs Scalar"
+    "start-elm": "cd client && elm-live src/Main.elm --proxyPrefix /api --open --proxyHost http://localhost:4000",
+    "regen-graphql": "elm-graphql http://localhost:4000/ --output client/gen --scalar-codecs Scalar"
   },
   "dependencies": {
     "apollo-server": "^2.2.0",
