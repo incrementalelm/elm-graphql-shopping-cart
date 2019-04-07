@@ -46,12 +46,11 @@ type alias Flags =
 
 init : Flags -> Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
 init _ url navKey =
-    ( { subModel = Tuple.first Page.Home.init |> HomeModel
-      , navKey = navKey
-      , route = Route.Home
-      }
-    , Tuple.second Page.Home.init |> Cmd.map HomeMsg
-    )
+    { subModel = Tuple.first Page.Home.init |> HomeModel
+    , navKey = navKey
+    , route = Route.Home
+    }
+        |> initPage url
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -68,14 +67,7 @@ update msg model =
                     ( model, Browser.Navigation.load href )
 
         ( UrlChanged url, _ ) ->
-            case Route.fromUrl url |> Maybe.withDefault Route.Home of
-                Route.Home ->
-                    Page.Home.init
-                        |> updateWith HomeModel HomeMsg model
-
-                Route.Product ->
-                    Page.ProductDetail.init
-                        |> updateWith ProductDetailModel ProductDetailMsg model
+            initPage url model
 
         ( HomeMsg homeMsg, HomeModel subModel ) ->
             Page.Home.update homeMsg subModel
@@ -87,6 +79,17 @@ update msg model =
 
         ( _, _ ) ->
             ( model, Cmd.none )
+
+
+initPage url model =
+    case Route.fromUrl url |> Maybe.withDefault Route.Home of
+        Route.Home ->
+            Page.Home.init
+                |> updateWith HomeModel HomeMsg model
+
+        Route.Product ->
+            Page.ProductDetail.init
+                |> updateWith ProductDetailModel ProductDetailMsg model
 
 
 updateWith : (subModel -> SubModel) -> (subMsg -> Msg) -> Model -> ( subModel, Cmd subMsg ) -> ( Model, Cmd Msg )
