@@ -2,8 +2,6 @@ module Scalar exposing (Dollars, ProductCode, codecs)
 
 import Api.Scalar exposing (defaultCodecs)
 import Dollars
-import Json.Decode as Decode exposing (Decoder)
-import Json.Encode as Encode
 
 
 type alias Dollars =

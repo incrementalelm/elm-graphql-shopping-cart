@@ -1,6 +1,5 @@
 module Request exposing (Response, query)
 
-import Graphql.Document as Document
 import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)

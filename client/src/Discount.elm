@@ -6,9 +6,7 @@ import Api.Union
 import Api.Union.DiscountedProductInfoOrError
 import Dollars exposing (Dollars)
 import Element exposing (Element)
-import Element.Input
 import Graphql.SelectionSet as SelectionSet
-import RemoteData exposing (RemoteData)
 
 
 type Discount

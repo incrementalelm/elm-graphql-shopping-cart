@@ -1,16 +1,13 @@
 module Product exposing (Product, selection, view)
 
 import Api.Object
-import Api.Object.DiscountedProductInfo
 import Api.Object.Product
 import Api.Scalar
 import Discount exposing (Discount)
 import Dollars exposing (Dollars)
 import Element exposing (Element)
 import Element.Font
-import Element.Input
 import Graphql.SelectionSet as SelectionSet
-import RemoteData exposing (RemoteData)
 
 
 type Product
