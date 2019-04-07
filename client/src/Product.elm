@@ -58,7 +58,6 @@ detailView ((Product productDetails) as product) =
         , Element.text productDetails.name
         , priceView Discount.none product
         ]
-        |> ProductId.linkTo productDetails.id []
 
 
 priceView : Discount -> Product -> Element msg
