@@ -9,20 +9,22 @@ import Element.Input
 import Product exposing (Product)
 import RemoteData exposing (RemoteData)
 import Request exposing (Response)
+import Scalar exposing (ProductId)
 
 
 type Msg
-    = GotProducts (Response (List Product.Product))
+    = GotProduct (Response (Maybe Product.Product))
 
 
 type alias Model =
-    { products : Response (List Product.Product)
+    { products : Response (Maybe Product.Product)
     }
 
 
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        GotProducts productsResponse ->
+        GotProduct productsResponse ->
             ( { model | products = productsResponse }, Cmd.none )
 
 
@@ -33,22 +35,24 @@ view model =
         ]
 
 
-init : ( Model, Cmd Msg )
-init =
-    ( { products = RemoteData.Loading
-      }
-    , productsRequest
+init : ProductId -> ( Model, Cmd Msg )
+init productId =
+    ( { products = RemoteData.Loading }
+    , productsRequest productId
     )
 
 
 productsView : Model -> Element Msg
 productsView model =
     case model.products of
-        RemoteData.Success products ->
-            Element.none
+        RemoteData.Success maybeProduct ->
+            case maybeProduct of
+                Just foundProduct ->
+                    Product.detailView foundProduct
 
-        -- List.map Product.view products
-        --     |> Element.column []
+                Nothing ->
+                    Element.none
+
         RemoteData.Failure error ->
             Element.text <| Debug.toString error
 
@@ -59,7 +63,7 @@ productsView model =
             Element.text "Not asked..."
 
 
-productsRequest : Cmd Msg
-productsRequest =
-    Query.products Product.selection
-        |> Request.query GotProducts
+productsRequest : ProductId -> Cmd Msg
+productsRequest id =
+    Query.product { id = id } Product.selection
+        |> Request.query GotProduct

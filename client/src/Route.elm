@@ -7,7 +7,7 @@ import Url.Parser as Parser exposing ((</>), Parser, int, oneOf, s, string)
 
 type Route
     = Home
-    | Product
+    | Product ProductId
 
 
 fromUrl : Url -> Maybe Route
@@ -19,5 +19,5 @@ parser : Parser (Route -> a) a
 parser =
     oneOf
         [ Parser.map Home Parser.top
-        , Parser.map (\_ -> Product) (s "item" </> int)
+        , Parser.map Product (s "item" </> ProductId.urlParser)
         ]

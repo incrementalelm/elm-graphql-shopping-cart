@@ -1,4 +1,4 @@
-module ProductId exposing (ProductId, codec, linkTo)
+module ProductId exposing (ProductId, codec, linkTo, urlParser)
 
 import Element exposing (Element)
 import Graphql.Codec exposing (Codec)
@@ -6,6 +6,7 @@ import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
 import Json.Decode exposing (Decoder)
 import Json.Encode
 import Url.Builder
+import Url.Parser as Parser exposing ((</>), Parser, int, oneOf, s, string)
 
 
 type ProductId
@@ -35,3 +36,8 @@ decoder =
 encode : ProductId -> Json.Encode.Value
 encode (ProductId id) =
     Json.Encode.int id
+
+
+urlParser : Parser (ProductId -> route) route
+urlParser =
+    int |> Parser.map ProductId

@@ -2,7 +2,7 @@
 -- https://github.com/dillonkearns/elm-graphql
 
 
-module Api.Query exposing (DiscountOrErrorRequiredArguments, DiscountRequiredArguments, discount, discountOrError, products, shoppingCartItems, userid)
+module Api.Query exposing (DiscountOrErrorRequiredArguments, DiscountRequiredArguments, ProductRequiredArguments, discount, discountOrError, product, products, shoppingCartItems, userid)
 
 import Api.InputObject
 import Api.Interface
@@ -22,6 +22,20 @@ import Scalar
 products : SelectionSet decodesTo Api.Object.Product -> SelectionSet (List decodesTo) RootQuery
 products object_ =
     Object.selectionForCompositeField "products" [] object_ (identity >> Decode.list)
+
+
+type alias ProductRequiredArguments =
+    { id : Scalar.ProductId }
+
+
+{-|
+
+  - id - The product to look up.
+
+-}
+product : ProductRequiredArguments -> SelectionSet decodesTo Api.Object.Product -> SelectionSet (Maybe decodesTo) RootQuery
+product requiredArgs object_ =
+    Object.selectionForCompositeField "product" [ Argument.required "id" requiredArgs.id (Scalar.codecs |> Api.Scalar.unwrapEncoder .codecProductId) ] object_ (identity >> Decode.nullable)
 
 
 shoppingCartItems : SelectionSet decodesTo Api.Object.Product -> SelectionSet (List decodesTo) RootQuery

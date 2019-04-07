@@ -87,8 +87,8 @@ initPage url model =
             Page.Home.init
                 |> updateWith HomeModel HomeMsg model
 
-        Route.Product ->
-            Page.ProductDetail.init
+        Route.Product productId ->
+            Page.ProductDetail.init productId
                 |> updateWith ProductDetailModel ProductDetailMsg model
 
 
