@@ -52,6 +52,23 @@ export const Query = objectType({
         return Promise.resolve(products);
       }
     });
+    t.field("product", {
+      type: "Product",
+      nullable: true,
+      args: {
+        id: arg({
+          type: "ProductId",
+          description: "The product to look up.",
+          required: true
+        })
+      },
+      resolve(_, { id }) {
+        console.log("id", id.value);
+        return Promise.resolve(
+          products.find(product => product.id.toString() === id.value) || null
+        );
+      }
+    });
     t.list.field("shoppingCartItems", {
       type: "Product",
       resolve() {

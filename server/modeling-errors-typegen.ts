@@ -79,6 +79,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     discount: NexusGenRootTypes['DiscountedProductInfo']; // DiscountedProductInfo!
     discountOrError: NexusGenRootTypes['DiscountedProductInfoOrError']; // DiscountedProductInfoOrError!
+    product: NexusGenRootTypes['Product'] | null; // Product
     products: NexusGenRootTypes['Product'][]; // [Product!]!
     shoppingCartItems: NexusGenRootTypes['Product'][]; // [Product!]!
     userid: string; // String!
@@ -92,6 +93,9 @@ export interface NexusGenArgTypes {
     }
     discountOrError: { // args
       discountCode: string; // String!
+    }
+    product: { // args
+      id: any; // ProductId!
     }
   }
 }

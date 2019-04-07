@@ -71,6 +71,10 @@ type Query {
     """Cardholder name"""
     discountCode: String!
   ): DiscountedProductInfoOrError!
+  product(
+    """The product to look up."""
+    id: ProductId!
+  ): Product
   products: [Product!]!
   shoppingCartItems: [Product!]!
   userid: String!
