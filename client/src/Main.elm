@@ -68,9 +68,14 @@ update msg model =
                     ( model, Browser.Navigation.load href )
 
         ( UrlChanged url, _ ) ->
-            ( { model | route = Route.Product }
-            , Cmd.none
-            )
+            case Route.fromUrl url |> Maybe.withDefault Route.Home of
+                Route.Home ->
+                    Page.Home.init
+                        |> updateWith HomeModel HomeMsg model
+
+                Route.Product ->
+                    Page.ProductDetail.init
+                        |> updateWith ProductDetailModel ProductDetailMsg model
 
         ( HomeMsg homeMsg, HomeModel subModel ) ->
             Page.Home.update homeMsg subModel
