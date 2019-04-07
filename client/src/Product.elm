@@ -88,7 +88,7 @@ detailView ((Product productDetails) as product) =
                 [ Element.text productDetails.name
                 , priceView Discount.none product
                 ]
-            , productDetails.extra |> (\(Detail { description }) -> description) |> Element.text
+            , productDetails.extra |> (\(Detail detail) -> detail.description) |> Element.text
             ]
         ]
 
