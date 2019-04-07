@@ -9,6 +9,7 @@ import Element.Border
 import Element.Events
 import Element.Input
 import Page.Home
+import Page.ProductDetail
 import Product exposing (Product)
 import RemoteData exposing (RemoteData)
 import Request exposing (Response)
@@ -24,13 +25,18 @@ type Msg
     = UrlRequested Browser.UrlRequest
     | UrlChanged Url
     | HomeMsg Page.Home.Msg
+    | ProductDetailMsg Page.ProductDetail.Msg
 
 
 type alias Model =
-    { subModel : Page.Home.Model
+    { subModel : SubModel
     , navKey : Browser.Navigation.Key
     , route : Route
     }
+
+
+type SubModel
+    = HomeModel Page.Home.Model
 
 
 type alias Flags =
@@ -39,7 +45,7 @@ type alias Flags =
 
 init : Flags -> Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
 init _ url navKey =
-    ( { subModel = Tuple.first Page.Home.init
+    ( { subModel = Tuple.first Page.Home.init |> HomeModel
       , navKey = navKey
       , route = Route.Home
       }
@@ -49,8 +55,8 @@ init _ url navKey =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        UrlRequested urlRequest ->
+    case ( msg, model.subModel ) of
+        ( UrlRequested urlRequest, _ ) ->
             case urlRequest of
                 Browser.Internal url ->
                     ( model
@@ -60,19 +66,24 @@ update msg model =
                 Browser.External href ->
                     ( model, Browser.Navigation.load href )
 
-        UrlChanged url ->
+        ( UrlChanged url, _ ) ->
             ( { model | route = Route.Product }
             , Cmd.none
             )
 
-        HomeMsg homeMsg ->
-            let
-                ( updatedSubModel, subMsg ) =
-                    Page.Home.update homeMsg model.subModel
-            in
-            ( { model | subModel = updatedSubModel }
-            , subMsg |> Cmd.map HomeMsg
-            )
+        ( HomeMsg homeMsg, HomeModel subModel ) ->
+            Page.Home.update homeMsg subModel
+                |> updateWith HomeModel HomeMsg model
+
+        ( ProductDetailMsg subMsg, _ ) ->
+            ( model, Cmd.none )
+
+
+updateWith : (subModel -> SubModel) -> (subMsg -> Msg) -> Model -> ( subModel, Cmd subMsg ) -> ( Model, Cmd Msg )
+updateWith mapModel mapMsg model ( subModel, subCmd ) =
+    ( { model | subModel = mapModel subModel }
+    , Cmd.map mapMsg subCmd
+    )
 
 
 main : Program Flags Model Msg
@@ -91,8 +102,11 @@ view : Model -> Browser.Document Msg
 view model =
     { title = "The Elm Shoppe"
     , body =
-        Page.Home.view model.subModel
-            |> Element.map HomeMsg
+        (case model.subModel of
+            HomeModel subModel ->
+                Page.Home.view subModel
+                    |> Element.map HomeMsg
+        )
             |> Element.layout []
             |> List.singleton
     }
