@@ -5,16 +5,17 @@ import Graphql.Codec exposing (Codec)
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
 import Json.Decode exposing (Decoder)
 import Json.Encode
+import Url.Builder
 
 
 type ProductId
-    = ProductId
+    = ProductId Int
 
 
 linkTo : ProductId -> List (Element.Attribute msg) -> Element msg -> Element msg
-linkTo productId attributes label =
+linkTo (ProductId id) attributes label =
     Element.link attributes
-        { url = "/item"
+        { url = Url.Builder.absolute [ "item", String.fromInt id ] []
         , label = label
         }
 
@@ -28,9 +29,9 @@ codec =
 
 decoder : Decoder ProductId
 decoder =
-    Json.Decode.succeed ProductId
+    Json.Decode.map ProductId Json.Decode.int
 
 
 encode : ProductId -> Json.Encode.Value
-encode ProductId =
+encode (ProductId id) =
     Json.Encode.null
