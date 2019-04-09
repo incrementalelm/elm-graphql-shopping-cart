@@ -36,6 +36,7 @@ export interface NexusGenRootTypes {
     discountedPrice: any; // Dollars!
   }
   Product: { // root type
+    averageRating: number; // Float!
     code: any; // ProductCode!
     description: string; // String!
     id: any; // ProductId!
@@ -71,6 +72,7 @@ export interface NexusGenFieldTypes {
     discountedPrice: any; // Dollars!
   }
   Product: { // field return type
+    averageRating: number; // Float!
     code: any; // ProductCode!
     description: string; // String!
     id: any; // ProductId!

@@ -15,6 +15,7 @@ const products = [
     price: 200,
     id: 1,
     description: "A lovely Japanese-style Elm Bonsai Tree!",
+    averageRating: 4.6,
     imageUrl:
       "https://images-na.ssl-images-amazon.com/images/I/71ZQCpI8v2L._SX425_.jpg"
   },
@@ -24,6 +25,7 @@ const products = [
     price: 350,
     id: 2,
     description: "A classic painting of an Elm tree.",
+    averageRating: 3.9,
     imageUrl:
       "https://images.fineartamerica.com/images-medium-large-5/american-elm-tree-shweta-mahajan.jpg"
   },
@@ -34,6 +36,7 @@ const products = [
     id: 3,
     description:
       "Lovers' Elm, Gwynne estate, Dufferin Street. Toronto, c. 1914",
+    averageRating: 3.2,
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/1/19/Lovers%27_Elm%2C_Gwynne_estate%2C_Dufferin_Street.jpg"
   },
@@ -43,6 +46,7 @@ const products = [
     price: 20,
     id: 4,
     description: "Grow an Elm tree of your own in your backyard!",
+    averageRating: 5.0,
     imageUrl:
       "https://upload.wikimedia.org/wikipedia/commons/7/76/Ulmus_glabra.jpg"
   }

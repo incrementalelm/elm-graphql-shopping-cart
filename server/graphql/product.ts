@@ -13,5 +13,6 @@ export const Product = objectType({
     t.productId("id");
     t.string("name", { description: "The product name." });
     t.string("imageUrl", { description: "Preview image for product." });
+    t.float("averageRating", { description: "The average star rating." });
   }
 });

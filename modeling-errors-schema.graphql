@@ -44,6 +44,8 @@ scalar Dollars
 
 """A product."""
 type Product {
+  """The average star rating."""
+  averageRating: Float!
   code: ProductCode!
   description: String!
   id: ProductId!
