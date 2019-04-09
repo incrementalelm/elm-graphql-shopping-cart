@@ -80,7 +80,7 @@ view discount ((Product productDetails) as product) =
 
 starRating : Float -> Element msg
 starRating rating =
-    List.map
+    [ List.map
         (\currentStar ->
             if round rating >= currentStar then
                 filledStar
@@ -90,6 +90,9 @@ starRating rating =
         )
         [ 1, 2, 3, 4, 5 ]
         |> Element.row [ Element.Font.color (Element.rgb255 255 175 0) ]
+    , rating |> String.fromFloat |> Element.text
+    ]
+        |> Element.row [ Element.spacing 10 ]
 
 
 filledStar =
