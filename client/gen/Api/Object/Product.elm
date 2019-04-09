@@ -2,7 +2,7 @@
 -- https://github.com/dillonkearns/elm-graphql
 
 
-module Api.Object.Product exposing (code, description, id, imageUrl, name, price)
+module Api.Object.Product exposing (averageRating, code, description, id, imageUrl, name, price)
 
 import Api.InputObject
 import Api.Interface
@@ -53,3 +53,10 @@ name =
 imageUrl : SelectionSet String Api.Object.Product
 imageUrl =
     Object.selectionForField "String" "imageUrl" [] Decode.string
+
+
+{-| The average star rating.
+-}
+averageRating : SelectionSet Float Api.Object.Product
+averageRating =
+    Object.selectionForField "Float" "averageRating" [] Decode.float

@@ -33,6 +33,7 @@ type alias Internals extra =
     , imageUrl : String
     , price : Dollars
     , id : ProductId
+    , averageRating : Float
     , extra : extra
     }
 
@@ -45,12 +46,13 @@ selection =
 
 baseSelection : SelectionSet extra Api.Object.Product -> SelectionSet (Product extra) Api.Object.Product
 baseSelection extraSelection =
-    SelectionSet.map6 Internals
+    SelectionSet.map7 Internals
         Api.Object.Product.code
         Api.Object.Product.name
         Api.Object.Product.imageUrl
         Api.Object.Product.price
         Api.Object.Product.id
+        Api.Object.Product.averageRating
         extraSelection
         |> SelectionSet.map Product
 
@@ -76,6 +78,28 @@ view discount ((Product productDetails) as product) =
         |> ProductId.linkTo productDetails.id []
 
 
+starRating : Float -> Element msg
+starRating rating =
+    List.map
+        (\currentStar ->
+            if round rating >= currentStar then
+                filledStar
+
+            else
+                emptyStar
+        )
+        [ 1, 2, 3, 4, 5 ]
+        |> Element.row [ Element.Font.color (Element.rgb255 255 175 0) ]
+
+
+filledStar =
+    Element.text "★"
+
+
+emptyStar =
+    Element.text "☆"
+
+
 detailView : Product Detail -> Element msg
 detailView ((Product productDetails) as product) =
     Element.row [ Element.spacing 30, Element.width Element.fill ]
@@ -89,6 +113,7 @@ detailView ((Product productDetails) as product) =
                 , priceView Discount.none product
                 ]
             , productDetails.extra |> (\(Detail detail) -> detail.description) |> Element.text
+            , starRating productDetails.averageRating
             ]
         ]
 
