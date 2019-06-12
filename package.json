@@ -2,7 +2,9 @@
   "name": "elm-anchor-links-example",
   "version": "0.0.0",
   "scripts": {
-    "start": "cd client && elm-live src/Main.elm --pushstate --open"
+    "start": "concurrently \"npm:start-*\"",
+    "start-client": "cd client && elm-live src/Main.elm --pushstate --open",
+    "start-server": "ts-node-dev --respawn ./server"
   },
   "dependencies": {
     "apollo-server": "^2.2.0",
@@ -12,6 +14,7 @@
   },
   "devDependencies": {
     "@dillonkearns/elm-graphql": "^3.2.0",
+    "concurrently": "^4.1.0",
     "elm-format": "^0.8.1",
     "elm-live": "^3.4.0",
     "prettier": "^1.15.2",
